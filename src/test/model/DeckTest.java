@@ -102,6 +102,13 @@ public class DeckTest {
     }
 
     @Test
+    void testSetName() {
+        String expectedName = DEFAULT_NAME + " X";
+        deck.setName(expectedName);
+        assertEquals(expectedName, deck.getName());
+    }
+
+    @Test
     void removeCard() {
         Card c1 = new Card("Q1", "A1");
         Card c2 = new Card("Q2", "A2");

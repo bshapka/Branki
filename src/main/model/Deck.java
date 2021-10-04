@@ -53,6 +53,12 @@ public class Deck {
     }
 
     // MODIFIES: this
+    // EFFECTS: sets name to the given value
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    // MODIFIES: this
     // EFFECTS: adds card to cards
     public void addCard(Card card) {
         cards.add(card);
