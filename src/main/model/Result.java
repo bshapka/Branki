@@ -2,11 +2,12 @@ package model;
 
 import java.time.LocalDateTime;
 
-// represents a result with a difficulty, min and max difficulty, and datetime
+// represents a result with a difficulty, min and max difficulty, and date/time
 public class Result {
 
     public static final int MIN_DIFFICULTY = 1;
     public static final int MAX_DIFFICULTY = 4;
+
     private int difficulty;
     private int minDifficulty;
     private int maxDifficulty;
@@ -14,7 +15,7 @@ public class Result {
 
     // REQUIRES: MIN_DIFFICULTY <= difficulty <= MAX_DIFFICULTY
     // EFFECTS: constructs a Result. Sets difficulty to given value, minDifficulty and
-    //          maxDifficulty to the values of corresponding constants, and dateTime to now
+    //          maxDifficulty to MIN_DIFFICULTY and MAX_DIFFICULTY respectively, and dateTime to now
     public Result(int difficulty) {
         this.difficulty = difficulty;
         minDifficulty = MIN_DIFFICULTY;
@@ -42,8 +43,8 @@ public class Result {
         return dateTime;
     }
 
-    // EFFECTS: returns true if the difficulty is in the upper half of the difficulty interval,
-    //          else returns false
+    // EFFECTS: returns true if difficulty is in the upper half of the difficulty interval,
+    //          defined by minDifficulty and maxDifficulty, else returns false
     public boolean wasDifficult() {
         return difficulty > (minDifficulty + maxDifficulty) / 2;
     }
