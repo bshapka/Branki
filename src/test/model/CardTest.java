@@ -7,6 +7,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+// test class for Card class
 public class CardTest {
 
     Card card;
