@@ -42,4 +42,28 @@ public class BrankiApp {
         return timeOfDay;
     }
 
+    // MODIFIES: this
+    // EFFECTS: prints main menu, gets user selection, and processes selection
+    private void printMainMenuAndProcessSelection() {
+        printMainMenu();
+        String selection = getStringFromUser();
+        processMainMenuSelection(selection);
+    }
+
+    // EFFECTS: processes user's main menu selection
+    private void processMainMenuSelection(String selection) {
+        // stub
+    }
+
+    // EFFECTS: gets a string from the user via the console, trims the string, and
+    //          then returns the string
+    private String getStringFromUser() {
+        return "";
+    }
+
+    // EFFECTS: prints main menu
+    private void printMainMenu() {
+        // stub
+    }
+
 }
