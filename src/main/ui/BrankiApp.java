@@ -6,6 +6,7 @@ import java.text.MessageFormat;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 // represents the Branki application console UI
 public class BrankiApp {
@@ -17,6 +18,7 @@ public class BrankiApp {
     public BrankiApp() {
         decks = new ArrayList<>();
         printWelcomeMessage();
+        printMainMenuAndProcessSelection();
     }
 
     // EFFECTS: prints welcome message
@@ -58,15 +60,17 @@ public class BrankiApp {
         System.out.println("Enter anything else to quit.");
     }
 
-    // EFFECTS: processes user's main menu selection
-    private void processMainMenuSelection(String selection) {
-        // stub
-    }
-
     // EFFECTS: gets a string from the user via the console, trims the string, and
     //          then returns the string
     private String getStringFromUser() {
-        return "";
+        Scanner scn = new Scanner(System.in);
+        String userInput = scn.nextLine().trim();
+        return userInput;
+    }
+
+    // EFFECTS: processes user's main menu selection
+    private void processMainMenuSelection(String selection) {
+        // stub
     }
 
 }
