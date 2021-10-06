@@ -50,6 +50,14 @@ public class BrankiApp {
         processMainMenuSelection(selection);
     }
 
+    // EFFECTS: prints main menu
+    private void printMainMenu() {
+        System.out.println("Please select one of the following options:");
+        System.out.println("Enter 'c' for deck configuration.");
+        System.out.println("Enter 's' to study.");
+        System.out.println("Enter anything else to quit.");
+    }
+
     // EFFECTS: processes user's main menu selection
     private void processMainMenuSelection(String selection) {
         // stub
@@ -59,11 +67,6 @@ public class BrankiApp {
     //          then returns the string
     private String getStringFromUser() {
         return "";
-    }
-
-    // EFFECTS: prints main menu
-    private void printMainMenu() {
-        // stub
     }
 
 }
