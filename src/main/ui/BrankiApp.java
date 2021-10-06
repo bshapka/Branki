@@ -2,6 +2,8 @@ package ui;
 
 import model.Deck;
 
+import java.text.MessageFormat;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +21,25 @@ public class BrankiApp {
 
     // EFFECTS: prints welcome message
     private void printWelcomeMessage() {
-        System.out.println("Welcome!");
+        int hourOfDay = LocalTime.now().getHour();
+        try {
+            String timeOfDay = getTimeOfDay(hourOfDay);
+            String welcomeMessage = MessageFormat.format("Good {0} and welcome to Branki! ", timeOfDay);
+            System.out.print(welcomeMessage);
+        } catch (IllegalArgumentException ex) {
+            System.out.print("Welcome to Branki! ");
+        }
+    }
+
+    // EFFECTS: returns the time of day based on the given hour. If given hour is not valid
+    //          (i.e. is not in [0, 23]) throws exception
+    private String getTimeOfDay(int hour) throws IllegalArgumentException {
+        if (hour < 0 || hour > 23) {
+            String errorMessage = MessageFormat.format("{0} is not a valid hour", hour);
+            throw(new IllegalArgumentException(errorMessage));
+        }
+        String timeOfDay = hour < 12 ? "morning" : (hour < 18 ? "afternon" : "evening");
+        return timeOfDay;
     }
 
 }
