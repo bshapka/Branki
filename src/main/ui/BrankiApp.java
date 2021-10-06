@@ -70,7 +70,36 @@ public class BrankiApp {
 
     // EFFECTS: processes user's main menu selection
     private void processMainMenuSelection(String selection) {
+        switch (selection.toLowerCase()) {
+            case "c":
+                routeDeckConfigMenu();
+                break;
+            case "s":
+                routeStudyMenu();
+                break;
+            default:
+                routeQuit();
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: routes user to deck configuration menu if decks is not empty.
+    //          If decks is empty, routes user to empty decks handler.
+    private void routeDeckConfigMenu() {
         // stub
+    }
+
+    // MODIFIES: this
+    // EFFECTS: routes user to study menu if decks is not empty. If decks is
+    //          empty, routes user to deck creation menu.
+    private void routeStudyMenu() {
+        // stub
+    }
+
+    // EFFECTS: quits the application
+    private void routeQuit() {
+        System.out.println("Bye for now!");
+        System.exit(0);
     }
 
 }
