@@ -7,9 +7,13 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.IntStream;
 
 // represents the Branki application console UI
 public class BrankiApp {
+
+    // the first id for listing objects in tabular form
+    private static final int ID_START = 1;
 
     private List<Deck> decks;
 
@@ -186,7 +190,17 @@ public class BrankiApp {
 
     // EFFECTS: prints out all of the decks in csv format
     private void printDecks(List<Deck> decks) {
-        // stub
+        System.out.println("Here are all of the decks:\n");
+        System.out.println("id, name, number of cards, is difficult");
+        System.out.println("---------------------------------------");
+        IntStream.range(0, decks.size()).forEach(i -> {
+            int deckId = i + ID_START;
+            Deck deck = decks.get(i);
+            String line = MessageFormat.format("{0}, {1}, {2}, {3}",
+                    deckId, deck.getName(), deck.getSize(), deck.hasDifficultCards() ? "Yes" : "No");
+            System.out.println(line);
+        });
+        System.out.println();
     }
 
     private void routeModifyDeck() {
