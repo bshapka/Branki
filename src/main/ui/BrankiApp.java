@@ -282,8 +282,19 @@ public class BrankiApp {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: gets a user selected deck from decks and a confirmation from the user.
+    //          If confirmation is 'y', deletes the deck and returns true. If confirmation
+    //          is anything else, returns false.
     private boolean deleteDeck() {
-        return false;
+        Deck deck = getSelectedDeck(decks);
+        System.out.println("Please enter 'y' to delete the deck, or anything else to cancel:");
+        String response = getStringFromUser();
+        if (!response.toLowerCase().equals("y")) {
+            return false;
+        }
+        decks.remove(deck);
+        return true;
     }
 
     private void routeCardConfigMenu() {
