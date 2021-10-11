@@ -266,8 +266,24 @@ public class BrankiApp {
         return input;
     }
 
+    // MODIFIES: this
+    // EFFECTS: routes user to deck deletion if decks is not empty. If decks is empty, routes
+    //          user to empty decks handler.
     private void routeDeleteDeck() {
-        // stub
+        if (decks.isEmpty()) {
+            handleNoDecks();
+        } else {
+            boolean deckDeleted = deleteDeck();
+            if (deckDeleted) {
+                System.out.print("The deck has been deleted. ");
+            } else {
+                System.out.print("Deck deletion cancelled. ");
+            }
+        }
+    }
+
+    private boolean deleteDeck() {
+        return false;
     }
 
     private void routeCardConfigMenu() {
