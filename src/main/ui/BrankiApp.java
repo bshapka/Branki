@@ -86,6 +86,17 @@ public class BrankiApp {
     // EFFECTS: routes user to deck configuration menu if decks is not empty.
     //          If decks is empty, routes user to empty decks handler.
     private void routeDeckConfigMenu() {
+        if (decks.isEmpty()) {
+            handleNoDecks();
+            System.out.println("Returning to deck configuration menu.\n");
+        }
+        printMainMenuAndProcessSelection();
+    }
+
+    // MODIFIES: this
+    // EFFECTS: notifies user that there are no decks, then initiates creation
+    //          of a deck
+    private void handleNoDecks() {
         // stub
     }
 
