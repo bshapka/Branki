@@ -203,6 +203,7 @@ public class BrankiApp {
         System.out.println();
     }
 
+    // MODIFIES: this
     // EFFECTS: routes user to deck modification if decks is not empty. If decks is empty,
     //          routes user to empty decks handler.
     private void routeModifyDeck() {
