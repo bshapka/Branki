@@ -218,6 +218,7 @@ public class BrankiApp {
         }
     }
 
+    // MODIFIES: this
     // EFFECTS: gets a user selected deck from decks and new name for deck from user.
     //          If new name is not blank, changes name of deck to the new name and returns true.
     //          If name is blank, returns false.
