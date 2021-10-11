@@ -218,8 +218,22 @@ public class BrankiApp {
         }
     }
 
+    // EFFECTS: gets a user selected deck from decks and new name for deck from user.
+    //          If new name is not blank, changes name of deck to the new name and returns true.
+    //          If name is blank, returns false.
     private boolean modifyDeck() {
-        return false;
+        Deck deck = getSelectedDeck(decks);
+        System.out.println("Please enter a new name for the deck, or type enter to cancel:");
+        String newName = getStringFromUser();
+        if (newName.isEmpty()) {
+            return false;
+        }
+        deck.setName(newName);
+        return true;
+    }
+
+    private Deck getSelectedDeck(List<Deck> decks) {
+        return new Deck("");
     }
 
     private void routeDeleteDeck() {
