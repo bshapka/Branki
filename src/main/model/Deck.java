@@ -26,14 +26,13 @@ public class Deck {
     }
 
     // EFFECTS: returns difficult cards in cards (as per card.isDifficult())
-    public List<Card> getDifficultCards() {
-        List<Card> difficultCards = new ArrayList<>();
+    public boolean hasDifficultCards() {
         for (Card card : cards) {
             if (card.isDifficult()) {
-                difficultCards.add(card);
+                return true;
             }
         }
-        return difficultCards;
+        return false;
     }
 
     // EFFECTS: returns card at given index in cards if 0 <= index < cards.size(), else throws

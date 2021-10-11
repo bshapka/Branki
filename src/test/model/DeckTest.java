@@ -47,7 +47,7 @@ public class DeckTest {
 
     @Test
     void testGetDifficultCardsEmpty() {
-        assertTrue(deck.getDifficultCards().isEmpty());
+        assertFalse(deck.hasDifficultCards());
     }
 
     @Test
@@ -55,7 +55,7 @@ public class DeckTest {
         Card c = new Card("Q", "A");
         c.addResult(new Result(Result.MIN_DIFFICULTY));
         deck.addCard(c);
-        assertTrue(deck.getDifficultCards().isEmpty());
+        assertFalse(deck.hasDifficultCards());
     }
 
     @Test
@@ -63,7 +63,7 @@ public class DeckTest {
         Card c = new Card("Q", "A");
         c.addResult(new Result(Result.MAX_DIFFICULTY));
         deck.addCard(c);
-        assertEquals(1, deck.getDifficultCards().size());
+        assertTrue(deck.hasDifficultCards());
     }
 
     @Test
