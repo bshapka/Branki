@@ -232,8 +232,25 @@ public class BrankiApp {
         return true;
     }
 
+    // EFFECTS: acquires deck from decks using id supplied by user. Re-prompts if invalid
+    //          index supplied.
     private Deck getSelectedDeck(List<Deck> decks) {
-        return new Deck("");
+        System.out.println("Please select a deck using its id.");
+        Deck deck = null;
+        while (deck == null) {
+            printDecks(decks);
+            try {
+                int deckIndex = getIntFromUser() - ID_START;
+                deck = decks.get(deckIndex);
+            } catch (IndexOutOfBoundsException ex) {
+                System.out.println("The id you provided is invalid. Please provide a valid id.");
+            }
+        }
+        return deck;
+    }
+
+    private int getIntFromUser() {
+        return 0;
     }
 
     private void routeDeleteDeck() {
