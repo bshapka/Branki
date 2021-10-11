@@ -90,7 +90,7 @@ public class BrankiApp {
             handleNoDecks();
             System.out.println("Returning to deck configuration menu.\n");
         }
-        printMainMenuAndProcessSelection();
+        printDeckConfigMenuAndProcessSelection();
     }
 
     // MODIFIES: this
@@ -125,6 +125,24 @@ public class BrankiApp {
         Deck deck = new Deck(deckName);
         decks.add(deck);
         return true;
+    }
+
+    // MODIFIES: this
+    // EFFECTS: prints deck configuration menu, gets user selection, and processes selection
+    private void printDeckConfigMenuAndProcessSelection() {
+        printDeckConfigMenu();
+        String selection = getStringFromUser();
+        processDeckConfigMenuSelection(selection);
+    }
+
+    // EFFECTS: prints deck configuration menu
+    private void printDeckConfigMenu() {
+        // stub
+    }
+
+    // EFFECTS: processes deck configuration menu user selection
+    private void processDeckConfigMenuSelection(String selection) {
+        // stub
     }
 
     // MODIFIES: this
