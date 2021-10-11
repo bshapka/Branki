@@ -203,8 +203,23 @@ public class BrankiApp {
         System.out.println();
     }
 
+    // EFFECTS: routes user to deck modification if decks is not empty. If decks is empty,
+    //          routes user to empty decks handler.
     private void routeModifyDeck() {
-        // stub
+        if (decks.isEmpty()) {
+            handleNoDecks();
+        } else {
+            boolean deckModified = modifyDeck();
+            if (deckModified) {
+                System.out.print("The deck has been renamed. ");
+            } else {
+                System.out.print("Deck renaming cancelled. ");
+            }
+        }
+    }
+
+    private boolean modifyDeck() {
+        return false;
     }
 
     private void routeDeleteDeck() {
