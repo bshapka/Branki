@@ -97,6 +97,14 @@ public class BrankiApp {
     // EFFECTS: notifies user that there are no decks, then initiates creation
     //          of a deck
     private void handleNoDecks() {
+        System.out.print("You don't have any decks! ");
+        System.out.println("There isn't much to do without a deck, so let's create one.");
+        createDeckAndNotify();
+    }
+
+    // MODIFIES: this
+    // EFFECTS: performs deck creation, informing user of result (success or cancelled)
+    private void createDeckAndNotify() {
         // stub
     }
 
