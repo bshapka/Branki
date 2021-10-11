@@ -148,6 +148,56 @@ public class BrankiApp {
 
     // EFFECTS: processes deck configuration menu user selection
     private void processDeckConfigMenuSelection(String selection) {
+        switch (selection.toLowerCase()) {
+            case "v":
+                viewDecks();
+                break;
+            case "c":
+                createDeckAndNotify();
+                break;
+            case "m":
+                routeModifyDeck();
+                break;
+            case "d":
+                routeDeleteDeck();
+                break;
+            case "o":
+                routeCardConfigMenu();
+                break;
+            default:
+                printMainMenuAndProcessSelection();
+                return;
+        }
+        System.out.println("Returning to deck configuration menu.\n");
+        printDeckConfigMenuAndProcessSelection();
+    }
+
+    // EFFECTS: prints decks if decks is not empty. If decks is empty, routes user
+    //          to empty decks handler.
+    private void viewDecks() {
+        if (decks.isEmpty()) {
+            handleNoDecks();
+        } else {
+            printDecks(decks);
+            System.out.println("Please enter anything to continue:");
+            getStringFromUser();
+        }
+    }
+
+    // EFFECTS: prints out all of the decks in csv format
+    private void printDecks(List<Deck> decks) {
+        // stub
+    }
+
+    private void routeModifyDeck() {
+        // stub
+    }
+
+    private void routeDeleteDeck() {
+        // stub
+    }
+
+    private void routeCardConfigMenu() {
         // stub
     }
 
