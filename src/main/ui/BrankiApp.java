@@ -117,7 +117,14 @@ public class BrankiApp {
     // EFFECTS: gets a name for new deck from the user. If name is not blank, adds deck with
     //          given name to decks and returns true. If name is blank, returns false.
     private boolean createDeck() {
-        return false;
+        System.out.println("Please enter a name for the new deck, or type enter to cancel:");
+        String deckName = getStringFromUser();
+        if (deckName.isEmpty()) {
+            return false;
+        }
+        Deck deck = new Deck(deckName);
+        decks.add(deck);
+        return true;
     }
 
     // MODIFIES: this
