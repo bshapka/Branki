@@ -297,7 +297,28 @@ public class BrankiApp {
         return true;
     }
 
+    // MODIFIES: this
+    // EFFECTS: routes user to deck selection if decks is not empty. If selected
+    //          deck has cards, then routes user to card configuration menu. If
+    //          decks is empty, routes user to empty decks handler.
     private void routeCardConfigMenu() {
+        if (decks.isEmpty()) {
+            handleNoDecks();
+        } else {
+            Deck deck = getSelectedDeck(decks);
+            if (!deck.hasCards()) {
+                handleNoCards(deck);
+                System.out.println("Returning to card configuration menu.\n");
+            }
+            printCardConfigMenuAndProcessSelection(deck);
+        }
+    }
+
+    private void printCardConfigMenuAndProcessSelection(Deck deck) {
+        // stub
+    }
+
+    private void handleNoCards(Deck deck) {
         // stub
     }
 
