@@ -105,7 +105,19 @@ public class BrankiApp {
     // MODIFIES: this
     // EFFECTS: performs deck creation, informing user of result (success or cancelled)
     private void createDeckAndNotify() {
-        // stub
+        boolean deckCreated = createDeck();
+        if (deckCreated) {
+            System.out.println("The deck has been created. ");
+        } else {
+            System.out.print("Deck creation cancelled. ");
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: gets a name for new deck from the user. If name is not blank, adds deck with
+    //          given name to decks and returns true. If name is blank, returns false.
+    private boolean createDeck() {
+        return false;
     }
 
     // MODIFIES: this
