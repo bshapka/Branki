@@ -249,8 +249,19 @@ public class BrankiApp {
         return deck;
     }
 
+    // EFFECTS: gets an integer from the user via the console and returns it.
+    //          Re-prompts if user enters a non-integer.
     private int getIntFromUser() {
-        return 0;
+        Integer input = null;
+        while (input == null) {
+            try {
+                Scanner scn = new Scanner(System.in);
+                input = scn.nextInt();
+            } catch (Exception ex) {
+                System.out.println("Please enter an integer.");
+            }
+        }
+        return input;
     }
 
     private void routeDeleteDeck() {
