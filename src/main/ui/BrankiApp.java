@@ -137,7 +137,13 @@ public class BrankiApp {
 
     // EFFECTS: prints deck configuration menu
     private void printDeckConfigMenu() {
-        // stub
+        System.out.println("Please select one of the following options:");
+        System.out.println("Enter 'v' to view the list of decks.");
+        System.out.println("Enter 'c' to create a deck.");
+        System.out.println("Enter 'm' to modify a deck's name.");
+        System.out.println("Enter 'd' to delete a deck.");
+        System.out.println("Enter 'o' to configure the cards in a deck");
+        System.out.println("Enter anything else to return to the main menu.");
     }
 
     // EFFECTS: processes deck configuration menu user selection
