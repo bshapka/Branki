@@ -2,6 +2,7 @@ package ui;
 
 import model.Card;
 import model.Deck;
+import model.Result;
 
 import java.text.MessageFormat;
 import java.time.LocalTime;
@@ -534,11 +535,82 @@ public class BrankiApp {
         return true;
     }
 
-    // MODIFIES: this
-    // EFFECTS: routes user to study menu if decks is not empty. If decks is
-    //          empty, routes user to deck creation menu.
+    // EFFECTS: routes user to deck creation if decks is empty, routes user onward if
+    //          decks is not empty
     private void routeStudyMenu() {
-        // stub
+        if (decks.isEmpty()) {
+            handleNoDecks();
+            System.out.println("Returning to main menu.\n");
+            printMainMenuAndProcessSelection();
+        } else {
+            routeStudyMenuDecksNotEmpty();
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: gets a user selected deck from decks. If selected deck is empty, then
+    //          routes user to empty deck handler. If selected deck is not empty, then
+    //          routes user to study session.
+    private void routeStudyMenuDecksNotEmpty() {
+        Deck deck = getSelectedDeck(decks);
+        if (!deck.hasCards()) {
+            handleNoCards(deck);
+            System.out.println("Returning to card configuration menu.\n");
+            printCardConfigMenuAndProcessSelection(deck);
+        } else {
+            System.out.println("Starting study session!");
+            studySession(deck);
+            System.out.println("Study session complete! Returning to main menu.\n");
+            printMainMenuAndProcessSelection();
+        }
+    }
+
+    // REQUIRES: deck is not null, deck is not empty
+    // MODIFIES: deck
+    // EFFECTS: for each card in the given deck, prints card data in specific order, and then
+    //          updates the card with a result based on user supplied rating.
+    private void studySession(Deck deck) {
+        for (Card card: deck.getCards()) {
+            printCardForStudySession(card);
+            Result result = getResultFromUser();
+            card.addResult(result);
+            System.out.println();
+        }
+    }
+
+    // EFFECTS: prints question, pauses until user enters output, then prints answer
+    private void printCardForStudySession(Card card) {
+        Map<String, String> fields = new HashMap<String, String>();
+        fields.put("question", card.getQuestion());
+        fields.put("answer", card.getAnswer());
+        fields.forEach((k, v) -> {
+            String prompt = MessageFormat.format("Here is the {0}:", k);
+            System.out.println(prompt);
+            System.out.println(v);
+            System.out.println();
+            if (k.equals("question")) {
+                System.out.println("Enter anything to see the answer:");
+                getStringFromUser();
+            }
+        });
+    }
+
+    // EFFECTS: gets a result based on user supplied difficulty rating
+    private Result getResultFromUser() {
+        Result result = null;
+        while (result == null) {
+            String prompt = MessageFormat.format(
+                    "Enter a rating between {0} (highest difficulty) and {1} (lowest difficulty).",
+                    Result.MAX_DIFFICULTY, Result.MIN_DIFFICULTY);
+            System.out.println(prompt);
+            int rating = getIntFromUser();
+            if (rating > Result.MAX_DIFFICULTY || rating < Result.MIN_DIFFICULTY) {
+                System.out.println("Please enter a valid rating.");
+            } else {
+                result = new Result(rating);
+            }
+        }
+        return result;
     }
 
     // EFFECTS: quits the application
