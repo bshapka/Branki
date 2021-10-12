@@ -502,8 +502,36 @@ public class BrankiApp {
         return card;
     }
 
+    // MODIFIES: deck
+    // EFFECTS: performs card selection and deletion, informing user of result
+    //          (i.e. success or cancelled) if deck is not empty. If deck is empty,
+    //          routes user to empty deck handler.
     private void routeDeleteCard(Deck deck) {
-        // stub
+        if (!deck.hasCards()) {
+            handleNoCards(deck);
+        } else {
+            boolean cardWasDeleted = deleteCard(deck);
+            if (cardWasDeleted) {
+                System.out.print("The card has been deleted. ");
+            } else {
+                System.out.print("Card deletion cancelled. ");
+            }
+        }
+    }
+
+    // MODIFIES: deck
+    // EFFECTS: gets a user selected card from given deck. Then gets a confirmation from the user.
+    //          If the confirmation is 'y', deletes the card from the given deck and returns true.
+    //          If confirmation is blank, does nothing but return false.
+    private boolean deleteCard(Deck deck) {
+        Card card = getSelectedCard(deck);
+        System.out.println("Please enter 'y' to delete the card, or type anything else to cancel:");
+        String response = getStringFromUser();
+        if (!response.toLowerCase().equals("y")) {
+            return false;
+        }
+        deck.removeCard(card);
+        return true;
     }
 
     // MODIFIES: this
