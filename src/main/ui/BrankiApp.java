@@ -443,8 +443,63 @@ public class BrankiApp {
         System.out.println();
     }
 
+    // MODIFIES: deck
+    // EFFECTS: performs card selection and modification, informing user of result
+    //          (i.e. success or cancelled) if deck is not empty. If deck is empty,
+    //          routes user to empty deck handler.
     private void routeModifyCard(Deck deck) {
-        // stub
+        if (!deck.hasCards()) {
+            handleNoCards(deck);
+        } else {
+            Card card = getSelectedCard(deck);
+            boolean cardModified = modifyCard(card);
+            if (cardModified) {
+                System.out.print("The card has been modified. ");
+            } else {
+                System.out.print("Card modification cancelled. ");
+            }
+        }
+    }
+
+    // MODIFIES: card
+    // EFFECTS: gets a question and answer for given card from the user, and
+    //          updates question and answer if these fields are not blank.
+    //          Cancels operation if given question and answer are blank.
+    private boolean modifyCard(Card card) {
+        Map<String, String> fields = new HashMap<String, String>();
+        Arrays.asList(new String[] {"question", "answer"})
+                .forEach(fieldName -> fields.put(fieldName, null));
+        String promptTemplate = "Please enter a new {0} for the card, or type enter to skip:";
+        setFieldValues(fields, false, promptTemplate);
+        boolean anyFieldLoadedByUser = fields.values().stream().anyMatch(s -> s != null);
+        if (!anyFieldLoadedByUser) {
+            return false;
+        }
+        if (fields.get("question") != null) {
+            card.setQuestion(fields.get("question"));
+        }
+        if (fields.get("answer") != null) {
+            card.setAnswer(fields.get("answer"));
+        }
+        return true;
+    }
+
+    // REQUIRES: deck is not null, cards is not empty
+    // EFFECTS: acquires card from deck using index supplied by user. Re-prompts if
+    //          invalid index supplied.
+    private Card getSelectedCard(Deck deck) {
+        System.out.println("Please select a card using its id.");
+        Card card = null;
+        while (card == null) {
+            printCards(deck);
+            try {
+                int cardIndex = getIntFromUser() - ID_START;
+                card = deck.getCard(cardIndex);
+            } catch (IndexOutOfBoundsException ex) {
+                System.out.println("The id you provided is invalid. Please provide a valid id.");
+            }
+        }
+        return card;
     }
 
     private void routeDeleteCard(Deck deck) {
