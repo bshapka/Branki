@@ -370,7 +370,60 @@ public class BrankiApp {
         }
     }
 
+    // EFFECTS: prints card configuration menu, gets user selection, and processes selection
     private void printCardConfigMenuAndProcessSelection(Deck deck) {
+        printCardConfigMenu();
+        String selection = getStringFromUser();
+        processCardConfigMenuSelection(selection, deck);
+    }
+
+    // EFFECTS: prints card configuration menu
+    private void printCardConfigMenu() {
+        System.out.println("Please select one of the following options:");
+        System.out.println("Enter 'v' to view the list of cards.");
+        System.out.println("Enter 'c' to create a card.");
+        System.out.println("Enter 'm' to modify a card's fields.");
+        System.out.println("Enter 'd' to delete a card.");
+        System.out.println("Enter 'b' to return to the deck configuration menu.");
+        System.out.println("Enter anything else to return to the main menu.");
+    }
+
+    // MODIFIES: this
+    // EFFECTS: processes card configuration menu user selection
+    private void processCardConfigMenuSelection(String selection, Deck deck) {
+        switch (selection.toLowerCase()) {
+            case "v":
+                viewCards(deck);
+                break;
+            case "c":
+                createCardAndNotify(deck);
+                break;
+            case "m":
+                routeModifyCard(deck);
+                break;
+            case "d":
+                routeDeleteCard(deck);
+                break;
+            case "b":
+                printDeckConfigMenuAndProcessSelection();
+                return;
+            default:
+                printMainMenuAndProcessSelection();
+                return;
+        }
+        System.out.println("Returning to card configuration menu.\n");
+        printCardConfigMenuAndProcessSelection(deck);
+    }
+
+    private void viewCards(Deck deck) {
+        // stub
+    }
+
+    private void routeModifyCard(Deck deck) {
+        // stub
+    }
+
+    private void routeDeleteCard(Deck deck) {
         // stub
     }
 
