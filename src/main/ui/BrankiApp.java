@@ -44,8 +44,7 @@ public class BrankiApp {
             String errorMessage = MessageFormat.format("{0} is not a valid hour", hour);
             throw(new IllegalArgumentException(errorMessage));
         }
-        String timeOfDay = hour < 12 ? "morning" : (hour < 18 ? "afternoon" : "evening");
-        return timeOfDay;
+        return hour < 12 ? "morning" : (hour < 18 ? "afternoon" : "evening");
     }
 
     // MODIFIES: this
@@ -68,8 +67,7 @@ public class BrankiApp {
     //          then returns the string
     private String getStringFromUser() {
         Scanner scn = new Scanner(System.in);
-        String userInput = scn.nextLine().trim();
-        return userInput;
+        return scn.nextLine().trim();
     }
 
     // EFFECTS: processes user's main menu selection
@@ -290,7 +288,7 @@ public class BrankiApp {
         Deck deck = getSelectedDeck(decks);
         System.out.println("Please enter 'y' to delete the deck, or anything else to cancel:");
         String response = getStringFromUser();
-        if (!response.toLowerCase().equals("y")) {
+        if (!response.equalsIgnoreCase("y")) {
             return false;
         }
         decks.remove(deck);
@@ -337,7 +335,7 @@ public class BrankiApp {
     //          a new card and adds to given deck if question and answer are not
     //          blank. Cancels operation if given question or answer are blank.
     private boolean createCard(Deck deck) {
-        Map<String, String> fields = new HashMap<String, String>();
+        Map<String, String> fields = new HashMap<>();
         Arrays.asList(new String[] {"question", "answer"})
                 .forEach(fieldName -> fields.put(fieldName, null));
         String promptTemplate = "Please enter a(n) {0} for the new card, or type enter to cancel:";
@@ -467,7 +465,7 @@ public class BrankiApp {
     //          updates question and answer if these fields are not blank.
     //          Cancels operation if given question and answer are blank.
     private boolean modifyCard(Card card) {
-        Map<String, String> fields = new HashMap<String, String>();
+        Map<String, String> fields = new HashMap<>();
         Arrays.asList(new String[] {"question", "answer"})
                 .forEach(fieldName -> fields.put(fieldName, null));
         String promptTemplate = "Please enter a new {0} for the card, or type enter to skip:";
@@ -528,7 +526,7 @@ public class BrankiApp {
         Card card = getSelectedCard(deck);
         System.out.println("Please enter 'y' to delete the card, or type anything else to cancel:");
         String response = getStringFromUser();
-        if (!response.toLowerCase().equals("y")) {
+        if (!response.equalsIgnoreCase("y")) {
             return false;
         }
         deck.removeCard(card);
@@ -580,7 +578,7 @@ public class BrankiApp {
 
     // EFFECTS: prints question, pauses until user enters output, then prints answer
     private void printCardForStudySession(Card card) {
-        Map<String, String> fields = new HashMap<String, String>();
+        Map<String, String> fields = new HashMap<>();
         fields.put("question", card.getQuestion());
         fields.put("answer", card.getAnswer());
         fields.forEach((k, v) -> {
