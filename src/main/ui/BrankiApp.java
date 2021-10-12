@@ -314,11 +314,19 @@ public class BrankiApp {
         }
     }
 
-    private void printCardConfigMenuAndProcessSelection(Deck deck) {
+    // MODIFIES: deck
+    // EFFECTS: notifies user there are no cards in deck, then initiates creation of a card
+    private void handleNoCards(Deck deck) {
+        System.out.print("You don't have any cards in this deck! ");
+        System.out.println("There isn't much to do with a cardless deck, so let's create a card.");
+        createCardAndNotify(deck);
+    }
+
+    private void createCardAndNotify(Deck deck) {
         // stub
     }
 
-    private void handleNoCards(Deck deck) {
+    private void printCardConfigMenuAndProcessSelection(Deck deck) {
         // stub
     }
 
