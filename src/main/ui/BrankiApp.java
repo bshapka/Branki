@@ -415,8 +415,32 @@ public class BrankiApp {
         printCardConfigMenuAndProcessSelection(deck);
     }
 
+    // EFFECTS: prints cards if cards is not empty. If cards is empty, routes user
+    //          to empty cards handler.
     private void viewCards(Deck deck) {
-        // stub
+        if (!deck.hasCards()) {
+            handleNoCards(deck);
+        } else {
+            printCards(deck);
+            System.out.println("Please enter anything to continue:");
+            getStringFromUser();
+        }
+    }
+
+    // REQUIRES: deck.cards is not empty
+    // EFFECTS: prints the cards in the given deck in csv format
+    private void printCards(Deck deck) {
+        System.out.println("Here are all of the cards:\n");
+        System.out.println("id, question, answer, number of results");
+        System.out.println("---------------------------------------");
+        IntStream.range(0, deck.getSize()).forEach(i -> {
+            int cardId = i + ID_START;
+            Card card = deck.getCard(i);
+            String line = MessageFormat.format("{0}, {1}, {2}, {3}",
+                    cardId, card.getQuestion(), card.getAnswer(), card.getResults().size());
+            System.out.println(line);
+        });
+        System.out.println();
     }
 
     private void routeModifyCard(Deck deck) {
