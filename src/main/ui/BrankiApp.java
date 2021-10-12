@@ -44,7 +44,7 @@ public class BrankiApp {
             String errorMessage = MessageFormat.format("{0} is not a valid hour", hour);
             throw(new IllegalArgumentException(errorMessage));
         }
-        String timeOfDay = hour < 12 ? "morning" : (hour < 18 ? "afternon" : "evening");
+        String timeOfDay = hour < 12 ? "morning" : (hour < 18 ? "afternoon" : "evening");
         return timeOfDay;
     }
 
