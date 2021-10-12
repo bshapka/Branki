@@ -1,12 +1,11 @@
 package ui;
 
+import model.Card;
 import model.Deck;
 
 import java.text.MessageFormat;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 import java.util.stream.IntStream;
 
 // represents the Branki application console UI
@@ -322,8 +321,53 @@ public class BrankiApp {
         createCardAndNotify(deck);
     }
 
+    // EFFECTS: performs card creation, informing user of result (i.e. success or cancelled)
     private void createCardAndNotify(Deck deck) {
-        // stub
+        boolean cardCreated = createCard(deck);
+        if (cardCreated) {
+            System.out.print("The card has been created. ");
+        } else {
+            System.out.print("Card creation cancelled. ");
+        }
+    }
+
+    // MODIFIES: deck
+    // EFFECTS: gets a question and answer for a new card from the user, creates
+    //          a new card and adds to given deck if question and answer are not
+    //          blank. Cancels operation if given question or answer are blank.
+    private boolean createCard(Deck deck) {
+        Map<String, String> fields = new HashMap<String, String>();
+        Arrays.asList(new String[] {"question", "answer"})
+                .forEach(fieldName -> fields.put(fieldName, null));
+        String promptTemplate = "Please enter a(n) {0} for the new card, or type enter to cancel:";
+        setFieldValues(fields, true, promptTemplate);
+        boolean fieldsAllSetByUser = fields.values().stream().allMatch(s -> s != null);
+        if (!fieldsAllSetByUser) {
+            return false;
+        }
+        Card card = new Card(fields.get("question"), fields.get("answer"));
+        deck.addCard(card);
+        return true;
+    }
+
+    // REQUIRES: fields is not null
+    // MODIFIES: fields
+    // EFFECTS: iterates through keys of fields, prompting user to enter a value for the field
+    //          with name equal to this key. If this given value is not blank, enters this value
+    //          in fields under that key. If breakOnBlank is true, will break if given value is
+    //          blank.
+    private void setFieldValues(Map<String, String> fields, boolean breakOnBlank, String promptTemplate) {
+        for (String name : fields.keySet()) {
+            String prompt = MessageFormat.format(promptTemplate, name);
+            System.out.println(prompt);
+            String value = getStringFromUser();
+            if (!value.isEmpty()) {
+                fields.put(name, value);
+            }
+            if (breakOnBlank && value.isEmpty()) {
+                break;
+            }
+        }
     }
 
     private void printCardConfigMenuAndProcessSelection(Deck deck) {
