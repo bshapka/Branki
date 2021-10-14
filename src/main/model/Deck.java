@@ -25,7 +25,8 @@ public class Deck {
         return cards;
     }
 
-    // EFFECTS: returns difficult cards in cards (as per card.isDifficult())
+    // EFFECTS: returns true if cards contains a difficult card (as per card.isDifficult()),
+    //          else returns false.
     public boolean hasDifficultCards() {
         for (Card card : cards) {
             if (card.isDifficult()) {
