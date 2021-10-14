@@ -70,6 +70,7 @@ public class BrankiApp {
         return scn.nextLine().trim();
     }
 
+    // MODIFIES: this
     // EFFECTS: processes user's main menu selection
     private void processMainMenuSelection(String selection) {
         switch (selection.toLowerCase()) {
@@ -148,6 +149,7 @@ public class BrankiApp {
         System.out.println("Enter anything else to return to the main menu.");
     }
 
+    // MODIFIES: this
     // EFFECTS: processes deck configuration menu user selection
     private void processDeckConfigMenuSelection(String selection) {
         switch (selection.toLowerCase()) {
@@ -320,6 +322,7 @@ public class BrankiApp {
         createCardAndNotify(deck);
     }
 
+    // MODIFIES: deck
     // EFFECTS: performs card creation, informing user of result (i.e. success or cancelled)
     private void createCardAndNotify(Deck deck) {
         boolean cardCreated = createCard(deck);
@@ -369,6 +372,7 @@ public class BrankiApp {
         }
     }
 
+    // MODIFIES: deck
     // EFFECTS: prints card configuration menu, gets user selection, and processes selection
     private void printCardConfigMenuAndProcessSelection(Deck deck) {
         printCardConfigMenu();
@@ -387,7 +391,7 @@ public class BrankiApp {
         System.out.println("Enter anything else to return to the main menu.");
     }
 
-    // MODIFIES: this
+    // MODIFIES: deck
     // EFFECTS: processes card configuration menu user selection
     private void processCardConfigMenuSelection(String selection, Deck deck) {
         switch (selection.toLowerCase()) {
@@ -414,6 +418,7 @@ public class BrankiApp {
         printCardConfigMenuAndProcessSelection(deck);
     }
 
+    // MODIFIES: deck
     // EFFECTS: prints cards if cards is not empty. If cards is empty, routes user
     //          to empty cards handler.
     private void viewCards(Deck deck) {
