@@ -38,11 +38,11 @@ public class BrankiApp {
     }
 
     // EFFECTS: returns the time of day based on the given hour. If given hour is not valid
-    //          (i.e. is not in [0, 23]) throws exception
+    //          (i.e. is not in [0, 23]) throws IllegalArgumentException
     private String getTimeOfDay(int hour) throws IllegalArgumentException {
         if (hour < 0 || hour > 23) {
             String errorMessage = MessageFormat.format("{0} is not a valid hour", hour);
-            throw(new IllegalArgumentException(errorMessage));
+            throw new IllegalArgumentException(errorMessage);
         }
         return hour < 12 ? "morning" : (hour < 18 ? "afternoon" : "evening");
     }
