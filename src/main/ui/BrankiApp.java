@@ -87,7 +87,7 @@ public class BrankiApp {
 
     // MODIFIES: this
     // EFFECTS: routes user to deck configuration menu if decks is not empty.
-    //          If decks is empty, routes user to empty decks handler.
+    //          If decks is empty, routes user to empty decks handler first.
     private void routeDeckConfigMenu() {
         if (decks.isEmpty()) {
             handleNoDecks();
@@ -526,7 +526,7 @@ public class BrankiApp {
     // MODIFIES: deck
     // EFFECTS: gets a user selected card from given deck. Then gets a confirmation from the user.
     //          If the confirmation is 'y', deletes the card from the given deck and returns true.
-    //          If confirmation is blank, does nothing but return false.
+    //          If confirmation is blank, returns false.
     private boolean deleteCard(Deck deck) {
         Card card = getSelectedCard(deck);
         System.out.println("Please enter 'y' to delete the card, or type anything else to cancel:");
