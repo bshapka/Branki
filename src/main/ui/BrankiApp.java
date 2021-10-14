@@ -357,7 +357,6 @@ public class BrankiApp {
         return true;
     }
 
-    // REQUIRES: fields is not null
     // MODIFIES: fields
     // EFFECTS: iterates through keys of fields, prompting user to enter a value for the field
     //          with name equal to this key. If this given value is not blank, enters this value
