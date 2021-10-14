@@ -12,7 +12,7 @@ interested in this project because I've found flashcards to be an effective stud
 
 Here is a list of user stories this project will realize:
 * As a user, I want to be able to create a deck of flashcards
-* As a user, I want to be able to view a deck of flashcards (names, counts, and difficulty)
+* As a user, I want to be able to view a deck of flashcards (names, size, and difficulty)
 * As a user, I want to be able to rename a deck of flashcards
 * As a user, I want to be able to delete a deck of flashcards
 * As a user, I want to be able to add a card to a deck
