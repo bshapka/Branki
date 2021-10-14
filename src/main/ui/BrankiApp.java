@@ -238,8 +238,9 @@ public class BrankiApp {
         return true;
     }
 
-    // EFFECTS: acquires deck from decks using id supplied by user. Re-prompts if invalid
-    //          index supplied.
+    // REQUIRES: decks is not empty
+    // EFFECTS: acquires deck from decks using id supplied by user. Re-prompts if given an
+    //          id that results in invalid index in decks.
     private Deck getSelectedDeck(List<Deck> decks) {
         System.out.println("Please select a deck using its id.");
         Deck deck = null;
@@ -495,7 +496,7 @@ public class BrankiApp {
         return true;
     }
 
-    // REQUIRES: deck is not null, cards is not empty
+    // REQUIRES: deck.hasCards()
     // EFFECTS: acquires card from deck using index supplied by user. Re-prompts if
     //          invalid index supplied.
     private Card getSelectedCard(Deck deck) {
