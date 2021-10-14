@@ -246,8 +246,8 @@ public class BrankiApp {
         Deck deck = null;
         while (deck == null) {
             printDecks(decks);
+            int deckIndex = getIntFromUser() - ID_START;
             try {
-                int deckIndex = getIntFromUser() - ID_START;
                 deck = decks.get(deckIndex);
             } catch (IndexOutOfBoundsException ex) {
                 System.out.println("The id you provided is invalid. Please provide a valid id.");
