@@ -190,6 +190,10 @@ public class BrankiApp {
 
     // EFFECTS: prints out all of the decks in csv format
     private void printDecks(List<Deck> decks) {
+        if (decks.isEmpty()) {
+            System.out.println("There are no decks to print!");
+            return;
+        }
         System.out.println("Here are all of the decks:\n");
         System.out.println("id, name, number of cards, is difficult");
         System.out.println("---------------------------------------");
@@ -431,9 +435,12 @@ public class BrankiApp {
         }
     }
 
-    // REQUIRES: deck.cards is not empty
     // EFFECTS: prints the cards in the given deck in csv format
     private void printCards(Deck deck) {
+        if (!deck.hasCards()) {
+            System.out.println("There are no cards to print!");
+            return;
+        }
         System.out.println("Here are all of the cards:\n");
         System.out.println("id, question, answer, number of results");
         System.out.println("---------------------------------------");
@@ -568,11 +575,14 @@ public class BrankiApp {
         }
     }
 
-    // REQUIRES: deck is not null, deck is not empty
     // MODIFIES: deck
     // EFFECTS: for each card in the given deck, prints card data in specific order, and then
     //          updates the card with a result based on user supplied rating.
     private void studySession(Deck deck) {
+        if (!deck.hasCards()) {
+            System.out.println("The selected deck has no cards to study!");
+            return;
+        }
         for (Card card: deck.getCards()) {
             printCardForStudySession(card);
             Result result = getResultFromUser();
