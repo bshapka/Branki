@@ -20,3 +20,6 @@ Here is a list of user stories this project will realize:
 * As a user, I want to be able to modify a card in a deck (question and answer)
 * As a user, I want to be able to delete a card from a deck
 * As a user, I want to be able to study a deck (go through cards and log difficulty)
+* As a user, I want to be able to save all of my decks to a file
+* As a user, I want to be able to load all of my decks from a file
+* As a user, when I quit I want to be alerted to and be able to save unsaved changes
