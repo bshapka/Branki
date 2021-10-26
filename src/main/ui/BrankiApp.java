@@ -614,14 +614,14 @@ public class BrankiApp {
         Result result = null;
         while (result == null) {
             String prompt = MessageFormat.format(
-                    "Enter a rating between {0} (highest difficulty) and {1} (lowest difficulty).",
+                    "Enter a difficulty between {0} (highest difficulty) and {1} (lowest difficulty).",
                     Result.MAX_DIFFICULTY, Result.MIN_DIFFICULTY);
             System.out.println(prompt);
-            int rating = getIntFromUser();
+            int difficulty = getIntFromUser();
             try {
-                result = new Result(rating);
+                result = new Result(difficulty);
             } catch (InvalidResultDifficultyException e) {
-                System.out.println("Please enter a valid rating.");
+                System.out.println("Please enter a valid difficulty.");
             }
         }
         return result;
