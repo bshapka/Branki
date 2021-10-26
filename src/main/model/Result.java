@@ -27,6 +27,20 @@ public class Result {
         dateTime = LocalDateTime.now();
     }
 
+    // EFFECTS: constructs a Result instance, setting difficulty, minDifficulty, maxDifficulty,
+    //          and dateTime.
+    // NOTE: unlike the other constructor, this constructor does not enforce
+    //       MIN_DIFFICULTY <= difficulty <= MAX_DIFFICULTY. This is because this constructor
+    //       is used to load previous data. Previous data will be valid in the sense that
+    //       minDifficulty <= difficulty <= maxDifficulty, but MIN_DIFFICULTY and MAX_DIFFICULTY
+    //       may have changed so that MIN_DIFFICULTY <= difficulty <= MAX_DIFFICULTY is not true.
+    public Result(int difficulty, int minDifficulty, int maxDifficulty, LocalDateTime dateTime) {
+        this.difficulty = difficulty;
+        this.minDifficulty = minDifficulty;
+        this.maxDifficulty = maxDifficulty;
+        this.dateTime = dateTime;
+    }
+
     // EFFECTS: returns difficulty
     public int getDifficulty() {
         return difficulty;

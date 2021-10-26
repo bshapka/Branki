@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -27,8 +28,7 @@ public class ResultTest {
 
     @Test
     void testExceptionNotThrownWhenDifficultyIsMin() {
-        int invalidDifficulty = Result.MIN_DIFFICULTY;
-        assertDoesNotThrow(() -> new Result(invalidDifficulty));
+        assertDoesNotThrow(() -> new Result(Result.MIN_DIFFICULTY));
     }
 
     @Test
@@ -39,14 +39,24 @@ public class ResultTest {
 
     @Test
     void testExceptionNotThrownWhenDifficultyIsMax() {
-        int invalidDifficulty = Result.MAX_DIFFICULTY;
-        assertDoesNotThrow(() -> new Result(invalidDifficulty));
+        assertDoesNotThrow(() -> new Result(Result.MAX_DIFFICULTY));
     }
 
     @Test
     void testExceptionNotThrownWhenDifficultyIsBetweenMinAndMax() {
-        int invalidDifficulty = (Result.MAX_DIFFICULTY - Result.MIN_DIFFICULTY) / 2;
-        assertDoesNotThrow(() -> new Result(invalidDifficulty));
+        assertDoesNotThrow(() -> new Result((Result.MAX_DIFFICULTY - Result.MIN_DIFFICULTY) / 2));
+    }
+
+    @Test
+    void testExceptionNotThrownSecondConstructor() {
+        int min = Result.MIN_DIFFICULTY;
+        int max = Result.MAX_DIFFICULTY;
+        LocalDateTime now = LocalDateTime.now();
+        assertDoesNotThrow(() -> new Result(min - 1, min, max, now));
+        assertDoesNotThrow(() -> new Result(min, min, max, LocalDateTime.now()));
+        assertDoesNotThrow(() -> new Result((max - min) / 2, min, max, now));
+        assertDoesNotThrow(() -> new Result(max, min, max, LocalDateTime.now()));
+        assertDoesNotThrow(() -> new Result(max + 1, min, max, now));
     }
 
     @Test
