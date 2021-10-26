@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+// test class for InvalidResultDifficultyException
 public class TestInvalidResultDifficultyException {
 
     InvalidResultDifficultyException exception;
