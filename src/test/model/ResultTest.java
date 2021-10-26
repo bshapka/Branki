@@ -1,5 +1,6 @@
 package model;
 
+import exceptions.InvalidResultDifficultyException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -14,8 +15,38 @@ public class ResultTest {
     static final int DEFAULT_DIFFICULTY = (Result.MAX_DIFFICULTY + Result.MIN_DIFFICULTY) / 2;
 
     @BeforeEach
-    void setup() {
+    void setup() throws InvalidResultDifficultyException {
         result = new Result(DEFAULT_DIFFICULTY);
+    }
+
+    @Test
+    void testExceptionThrownWhenDifficultyIsBelowMin() {
+        int invalidDifficulty = Result.MIN_DIFFICULTY - 1;
+        assertThrows(InvalidResultDifficultyException.class, () -> new Result(invalidDifficulty));
+    }
+
+    @Test
+    void testExceptionNotThrownWhenDifficultyIsMin() {
+        int invalidDifficulty = Result.MIN_DIFFICULTY;
+        assertDoesNotThrow(() -> new Result(invalidDifficulty));
+    }
+
+    @Test
+    void testExceptionThrownWhenDifficultyIsAboveMax() {
+        int invalidDifficulty = Result.MAX_DIFFICULTY + 1;
+        assertThrows(InvalidResultDifficultyException.class, () -> new Result(invalidDifficulty));
+    }
+
+    @Test
+    void testExceptionNotThrownWhenDifficultyIsMax() {
+        int invalidDifficulty = Result.MAX_DIFFICULTY;
+        assertDoesNotThrow(() -> new Result(invalidDifficulty));
+    }
+
+    @Test
+    void testExceptionNotThrownWhenDifficultyIsBetweenMinAndMax() {
+        int invalidDifficulty = (Result.MAX_DIFFICULTY - Result.MIN_DIFFICULTY) / 2;
+        assertDoesNotThrow(() -> new Result(invalidDifficulty));
     }
 
     @Test
@@ -42,13 +73,13 @@ public class ResultTest {
     }
 
     @Test
-    void testWasDifficultTrue() {
+    void testWasDifficultTrue() throws InvalidResultDifficultyException {
         result = new Result(Result.MAX_DIFFICULTY);
         assertTrue(result.wasDifficult());
     }
 
     @Test
-    void testWasDifficultFalse() {
+    void testWasDifficultFalse() throws InvalidResultDifficultyException {
         result = new Result(Result.MIN_DIFFICULTY);
         assertFalse(result.wasDifficult());
     }

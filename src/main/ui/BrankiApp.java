@@ -1,5 +1,6 @@
 package ui;
 
+import exceptions.InvalidResultDifficultyException;
 import model.Card;
 import model.Deck;
 import model.Result;
@@ -617,10 +618,10 @@ public class BrankiApp {
                     Result.MAX_DIFFICULTY, Result.MIN_DIFFICULTY);
             System.out.println(prompt);
             int rating = getIntFromUser();
-            if (rating > Result.MAX_DIFFICULTY || rating < Result.MIN_DIFFICULTY) {
-                System.out.println("Please enter a valid rating.");
-            } else {
+            try {
                 result = new Result(rating);
+            } catch (InvalidResultDifficultyException e) {
+                System.out.println("Please enter a valid rating.");
             }
         }
         return result;

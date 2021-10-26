@@ -1,5 +1,7 @@
 package model;
 
+import exceptions.InvalidResultDifficultyException;
+
 import java.time.LocalDateTime;
 
 // represents a result with a difficulty, min and max difficulty, and date/time
@@ -13,10 +15,12 @@ public class Result {
     private int maxDifficulty;
     private LocalDateTime dateTime;
 
-    // REQUIRES: MIN_DIFFICULTY <= difficulty <= MAX_DIFFICULTY
     // EFFECTS: constructs a Result. Sets difficulty to given value, minDifficulty and
     //          maxDifficulty to MIN_DIFFICULTY and MAX_DIFFICULTY respectively, and dateTime to now
-    public Result(int difficulty) {
+    public Result(int difficulty) throws InvalidResultDifficultyException {
+        if (difficulty < MIN_DIFFICULTY || difficulty > MAX_DIFFICULTY) {
+            throw new InvalidResultDifficultyException(difficulty, MIN_DIFFICULTY, MAX_DIFFICULTY);
+        }
         this.difficulty = difficulty;
         minDifficulty = MIN_DIFFICULTY;
         maxDifficulty = MAX_DIFFICULTY;

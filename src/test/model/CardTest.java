@@ -1,5 +1,6 @@
 package model;
 
+import exceptions.InvalidResultDifficultyException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -35,7 +36,7 @@ public class CardTest {
     }
 
     @Test
-    void testGetResultsNonEmpty() {
+    void testGetResultsNonEmpty() throws InvalidResultDifficultyException {
         Result r1 = new Result(Result.MIN_DIFFICULTY);
         Result r2 = new Result(Result.MIN_DIFFICULTY);
 
@@ -71,7 +72,7 @@ public class CardTest {
     }
 
     @Test
-    void testIsDifficultHasResultsNoneDifficult() {
+    void testIsDifficultHasResultsNoneDifficult() throws InvalidResultDifficultyException {
         Result r1 = new Result(Result.MIN_DIFFICULTY);
         Result r2 = new Result(Result.MIN_DIFFICULTY);
         card.addResult(r1);
@@ -80,7 +81,7 @@ public class CardTest {
     }
 
     @Test
-    void testIsDifficultHasResultsAllDifficult() {
+    void testIsDifficultHasResultsAllDifficult() throws InvalidResultDifficultyException {
         Result r1 = new Result(Result.MAX_DIFFICULTY);
         Result r2 = new Result(Result.MAX_DIFFICULTY);
         card.addResult(r1);
@@ -89,7 +90,7 @@ public class CardTest {
     }
 
     @Test
-    void testIsDifficultHasResultsEqualNumberOfDifficultAndNotDifficult() {
+    void testIsDifficultHasResultsEqualNumberOfDifficultAndNotDifficult() throws InvalidResultDifficultyException {
         Result r1 = new Result(Result.MIN_DIFFICULTY);
         Result r2 = new Result(Result.MAX_DIFFICULTY);
         card.addResult(r1);
@@ -98,7 +99,7 @@ public class CardTest {
     }
 
     @Test
-    void testIsDifficultHasResultsMajorityDifficult() {
+    void testIsDifficultHasResultsMajorityDifficult() throws InvalidResultDifficultyException {
         Result r1 = new Result(Result.MIN_DIFFICULTY);
         Result r2 = new Result(Result.MAX_DIFFICULTY);
         Result r3 = new Result(Result.MAX_DIFFICULTY);
@@ -109,7 +110,7 @@ public class CardTest {
     }
 
     @Test
-    void testIsDifficultHasResultsMajorityNotDifficult() {
+    void testIsDifficultHasResultsMajorityNotDifficult() throws InvalidResultDifficultyException {
         Result r1 = new Result(Result.MAX_DIFFICULTY);
         Result r2 = new Result(Result.MIN_DIFFICULTY);
         Result r3 = new Result(Result.MIN_DIFFICULTY);

@@ -1,5 +1,6 @@
 package model;
 
+import exceptions.InvalidResultDifficultyException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -51,7 +52,7 @@ public class DeckTest {
     }
 
     @Test
-    void testGetDifficultCardsNonEmptyNoDifficultCards() {
+    void testGetDifficultCardsNonEmptyNoDifficultCards() throws InvalidResultDifficultyException {
         Card c = new Card("Q", "A");
         c.addResult(new Result(Result.MIN_DIFFICULTY));
         deck.addCard(c);
@@ -59,7 +60,7 @@ public class DeckTest {
     }
 
     @Test
-    void testGetDifficultCardsNonEmptyHasDifficultCard() {
+    void testGetDifficultCardsNonEmptyHasDifficultCard() throws InvalidResultDifficultyException {
         Card c = new Card("Q", "A");
         c.addResult(new Result(Result.MAX_DIFFICULTY));
         deck.addCard(c);
