@@ -1,5 +1,7 @@
 package model;
 
+import org.json.JSONPropertyIgnore;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,6 +29,7 @@ public class Deck {
 
     // EFFECTS: returns true if cards contains a difficult card (as per card.isDifficult()),
     //          else returns false.
+    @JSONPropertyIgnore
     public boolean hasDifficultCards() {
         for (Card card : cards) {
             if (card.isDifficult()) {
@@ -38,16 +41,19 @@ public class Deck {
 
     // EFFECTS: returns card at given index in cards if 0 <= index < cards.size(), else throws
     //          IndexOutOfBoundsException
+    @JSONPropertyIgnore
     public Card getCard(int index) throws IndexOutOfBoundsException {
         return cards.get(index);
     }
 
     // EFFECTS: returns size of cards
+    @JSONPropertyIgnore
     public int getSize() {
         return cards.size();
     }
 
     // EFFECTS: returns true if cards is not empty, else returns false
+    @JSONPropertyIgnore
     public boolean hasCards() {
         return !cards.isEmpty();
     }

@@ -1,6 +1,7 @@
 package model;
 
 import exceptions.InvalidResultDifficultyException;
+import org.json.JSONPropertyIgnore;
 
 import java.time.LocalDateTime;
 
@@ -63,6 +64,7 @@ public class Result {
 
     // EFFECTS: returns true if difficulty is in the upper half of the difficulty interval,
     //          defined by minDifficulty and maxDifficulty, else returns false
+    @JSONPropertyIgnore
     public boolean wasDifficult() {
         return difficulty > (minDifficulty + maxDifficulty) / 2;
     }

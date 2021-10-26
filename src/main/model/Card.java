@@ -1,5 +1,7 @@
 package model;
 
+import org.json.JSONPropertyIgnore;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,6 +53,7 @@ public class Card {
     }
 
     // EFFECTS: returns true if the majority of results indicate difficulty, else returns false
+    @JSONPropertyIgnore
     public boolean isDifficult() {
         int resultCount = 0;
         int difficultCount = 0;
