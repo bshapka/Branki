@@ -1,0 +1,98 @@
+[
+    {
+        "cards": [
+            {
+                "question": "question 1",
+                "answer": "answer 1",
+                "results": [
+                    {
+                        "difficulty": 3,
+                        "dateTime": "2020-01-01T12:00",
+                        "minDifficulty": 1,
+                        "maxDifficulty": 4
+                    },
+                    {
+                        "difficulty": 4,
+                        "dateTime": "2020-01-01T12:00",
+                        "minDifficulty": 1,
+                        "maxDifficulty": 4
+                    }
+                ]
+            },
+            {
+                "question": "question 2",
+                "answer": "answer 2",
+                "results": [
+                    {
+                        "difficulty": 3,
+                        "dateTime": "2020-01-01T12:00",
+                        "minDifficulty": 1,
+                        "maxDifficulty": 4
+                    },
+                    {
+                        "difficulty": 4,
+                        "dateTime": "2020-01-01T12:00",
+                        "minDifficulty": 1,
+                        "maxDifficulty": 4
+                    }
+                ]
+            },
+            {
+                "question": "question 3",
+                "answer": "answer 3",
+                "results": [
+                    {
+                        "difficulty": 3,
+                        "dateTime": "2020-01-01T12:00",
+                        "minDifficulty": 1,
+                        "maxDifficulty": 4
+                    },
+                    {
+                        "difficulty": 4,
+                        "dateTime": "2020-01-01T12:00",
+                        "minDifficulty": 1,
+                        "maxDifficulty": 4
+                    }
+                ]
+            },
+            {
+                "question": "question 4",
+                "answer": "answer 4",
+                "results": [
+                    {
+                        "difficulty": 3,
+                        "dateTime": "2020-01-01T12:00",
+                        "minDifficulty": 1,
+                        "maxDifficulty": 4
+                    },
+                    {
+                        "difficulty": 4,
+                        "dateTime": "2020-01-01T12:00",
+                        "minDifficulty": 1,
+                        "maxDifficulty": 4
+                    }
+                ]
+            }
+        ],
+        "name": "Deck 1"
+    },
+    {
+        "cards": [
+            {
+                "question": "question 1",
+                "answer": "answer 1",
+                "results": []
+            },
+            {
+                "question": "question 2",
+                "answer": "answer 2",
+                "results": []
+            }
+        ],
+        "name": "Deck 2"
+    },
+    {
+        "cards": [],
+        "name": "Deck 3"
+    }
+]
