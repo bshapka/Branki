@@ -4,6 +4,9 @@ import exceptions.InvalidResultDifficultyException;
 import model.Card;
 import model.Deck;
 import model.Result;
+import org.json.JSONException;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
 import java.text.MessageFormat;
 import java.time.LocalTime;
@@ -15,13 +18,21 @@ public class BrankiApp {
 
     // the first id for listing objects in tabular form
     private static final int ID_START = 1;
+    // the file path for the json file used to save state
+    private static final String JSON_FILE_PATH = "./data/decks.json";
+    // the jsonReader used to save application data to a file
+    private static final JsonReader jsonReader = new JsonReader(JSON_FILE_PATH);
+    // the jsonReader used to read saved application data from a file
+    private static final JsonWriter jsonWriter = new JsonWriter(JSON_FILE_PATH);
 
     private List<Deck> decks;
+    private boolean isUnsaved;
 
     // MODIFIES: this
-    // EFFECTS: initializes decks to empty list and starts UI
+    // EFFECTS: initializes decks to empty list, isUnsaved to false, and starts UI
     public BrankiApp() {
         decks = new ArrayList<>();
+        isUnsaved = false;
         printWelcomeMessage();
         printMainMenuAndProcessSelection();
     }
@@ -61,6 +72,8 @@ public class BrankiApp {
         System.out.println("Please select one of the following options:");
         System.out.println("Enter 'c' for deck configuration.");
         System.out.println("Enter 's' to study.");
+        System.out.println("Enter 'w' to write (save) data.");
+        System.out.println("Enter 'l' to load data.");
         System.out.println("Enter anything else to quit.");
     }
 
@@ -119,7 +132,8 @@ public class BrankiApp {
 
     // MODIFIES: this
     // EFFECTS: gets a name for new deck from the user. If name is not blank, adds deck with
-    //          given name to decks and returns true. If name is blank, returns false.
+    //          given name to decks, sets isUnsaved to true, and returns true.
+    //          If name is blank, returns false.
     private boolean createDeck() {
         System.out.println("Please enter a name for the new deck, or type enter to cancel:");
         String deckName = getStringFromUser();
@@ -128,6 +142,7 @@ public class BrankiApp {
         }
         Deck deck = new Deck(deckName);
         decks.add(deck);
+        isUnsaved = true;
         return true;
     }
 
@@ -226,8 +241,8 @@ public class BrankiApp {
 
     // MODIFIES: this
     // EFFECTS: gets a user selected deck from decks and new name for deck from user.
-    //          If new name is not blank, changes name of deck to the new name and returns true.
-    //          If name is blank, returns false.
+    //          If new name is not blank, changes name of deck to the new name, sets isUnsaved to true,
+    //          and returns true. If name is blank, returns false.
     private boolean modifyDeck() {
         Deck deck = getSelectedDeck(decks);
         System.out.println("Please enter a new name for the deck, or type enter to cancel:");
@@ -236,6 +251,7 @@ public class BrankiApp {
             return false;
         }
         deck.setName(newName);
+        isUnsaved = true;
         return true;
     }
 
@@ -290,8 +306,8 @@ public class BrankiApp {
 
     // MODIFIES: this
     // EFFECTS: gets a user selected deck from decks and a confirmation from the user.
-    //          If confirmation is 'y', deletes the deck and returns true. If confirmation
-    //          is anything else, returns false.
+    //          If confirmation is 'y', deletes the deck, sets isUnsaved to true, and returns true.
+    //          If confirmation is anything else, returns false.
     private boolean deleteDeck() {
         Deck deck = getSelectedDeck(decks);
         System.out.println("Please enter 'y' to delete the deck, or anything else to cancel:");
@@ -300,6 +316,7 @@ public class BrankiApp {
             return false;
         }
         decks.remove(deck);
+        isUnsaved = true;
         return true;
     }
 
@@ -341,20 +358,22 @@ public class BrankiApp {
 
     // MODIFIES: deck
     // EFFECTS: gets a question and answer for a new card from the user, creates
-    //          a new card and adds to given deck if question and answer are not
-    //          blank. Cancels operation if given question or answer are blank.
+    //          a new card, adds to given deck, sets isUnsaved to true, and returns true
+    //          if question and answer are not blank. Cancels operation if given question
+    //          or answer are blank.
     private boolean createCard(Deck deck) {
         Map<String, String> fields = new HashMap<>();
         Arrays.asList(new String[] {"question", "answer"})
                 .forEach(fieldName -> fields.put(fieldName, null));
         String promptTemplate = "Please enter a(n) {0} for the new card, or type enter to cancel:";
         setFieldValues(fields, true, promptTemplate);
-        boolean fieldsAllSetByUser = fields.values().stream().allMatch(s -> s != null);
+        boolean fieldsAllSetByUser = fields.values().stream().allMatch(Objects::nonNull);
         if (!fieldsAllSetByUser) {
             return false;
         }
         Card card = new Card(fields.get("question"), fields.get("answer"));
         deck.addCard(card);
+        isUnsaved = true;
         return true;
     }
 
@@ -474,16 +493,17 @@ public class BrankiApp {
     }
 
     // MODIFIES: card
-    // EFFECTS: gets a question and answer for given card from the user, and
-    //          updates question and answer if these fields are not blank.
-    //          Cancels operation if given question and answer are blank.
+    // EFFECTS: gets a question and answer for given card from the user,
+    //          updates question and answer, sets isUnsaved to true, and returns true
+    //          if these fields are not both blank. Cancels operation if given question
+    //          and answer are blank.
     private boolean modifyCard(Card card) {
         Map<String, String> fields = new HashMap<>();
         Arrays.asList(new String[] {"question", "answer"})
                 .forEach(fieldName -> fields.put(fieldName, null));
         String promptTemplate = "Please enter a new {0} for the card, or type enter to skip:";
         setFieldValues(fields, false, promptTemplate);
-        boolean anyFieldLoadedByUser = fields.values().stream().anyMatch(s -> s != null);
+        boolean anyFieldLoadedByUser = fields.values().stream().anyMatch(Objects::nonNull);
         if (!anyFieldLoadedByUser) {
             return false;
         }
@@ -493,6 +513,7 @@ public class BrankiApp {
         if (fields.get("answer") != null) {
             card.setAnswer(fields.get("answer"));
         }
+        isUnsaved = true;
         return true;
     }
 
@@ -533,8 +554,8 @@ public class BrankiApp {
 
     // MODIFIES: deck
     // EFFECTS: gets a user selected card from given deck. Then gets a confirmation from the user.
-    //          If the confirmation is 'y', deletes the card from the given deck and returns true.
-    //          If confirmation is blank, returns false.
+    //          If the confirmation is 'y', deletes the card from the given deck, sets isUnsaved to true
+    //          and returns true. If confirmation is blank, returns false.
     private boolean deleteCard(Deck deck) {
         Card card = getSelectedCard(deck);
         System.out.println("Please enter 'y' to delete the card, or type anything else to cancel:");
@@ -543,6 +564,7 @@ public class BrankiApp {
             return false;
         }
         deck.removeCard(card);
+        isUnsaved = true;
         return true;
     }
 
@@ -578,7 +600,8 @@ public class BrankiApp {
 
     // MODIFIES: deck
     // EFFECTS: for each card in the given deck, prints card data in specific order, and then
-    //          updates the card with a result based on user supplied rating.
+    //          updates the card with a result based on user supplied rating. Also sets
+    //          isUnsaved to false.
     private void studySession(Deck deck) {
         if (!deck.hasCards()) {
             System.out.println("The selected deck has no cards to study!");
@@ -588,6 +611,7 @@ public class BrankiApp {
             printCardForStudySession(card);
             Result result = getResultFromUser();
             card.addResult(result);
+            isUnsaved = true;
             System.out.println();
         }
     }
