@@ -11,10 +11,10 @@ public class Result {
     public static final int MIN_DIFFICULTY = 1;
     public static final int MAX_DIFFICULTY = 4;
 
-    private int difficulty;
-    private int minDifficulty;
-    private int maxDifficulty;
-    private LocalDateTime dateTime;
+    private final int difficulty;
+    private final int minDifficulty;
+    private final int maxDifficulty;
+    private final LocalDateTime dateTime;
 
     // EFFECTS: constructs a Result. Sets difficulty to given value, minDifficulty and
     //          maxDifficulty to MIN_DIFFICULTY and MAX_DIFFICULTY respectively, and dateTime to now

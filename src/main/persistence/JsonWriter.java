@@ -14,8 +14,7 @@ import java.util.List;
 public class JsonWriter {
 
     private static final int INDENT_FACTOR = 4;
-    private PrintWriter printWriter;
-    private String filePath;
+    private final String filePath;
 
     // EFFECTS: constructs JsonWriter instance to write to filePath
     public JsonWriter(String filePath) {
@@ -27,7 +26,7 @@ public class JsonWriter {
     //          otherwise writes JSON representation of decks to file identified by filePath
     public void write(List<Deck> decks) throws FileNotFoundException {
         File file = new File(filePath);
-        printWriter = new PrintWriter(file);
+        PrintWriter printWriter = new PrintWriter(file);
         JSONArray json = new JSONArray(decks);
         printWriter.write(json.toString(INDENT_FACTOR));
         printWriter.close();

@@ -1,14 +1,11 @@
 package exceptions;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 // test class for InvalidResultDifficultyException
 public class TestInvalidResultDifficultyException {
-
-    InvalidResultDifficultyException exception;
 
     @Test
     void testExceptionErrMsgDiffTooLow() {

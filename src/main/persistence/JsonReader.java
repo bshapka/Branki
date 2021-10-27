@@ -18,7 +18,7 @@ import java.util.List;
 // represents a reader that reads a specified JSON file and converts this JSON to a collection of Deck
 public class JsonReader {
 
-    private String filePath;
+    private final String filePath;
 
     // EFFECTS: constructs a JsonReader with a given file path
     public JsonReader(String filePath) {
@@ -64,7 +64,7 @@ public class JsonReader {
         return card;
     }
 
-    // EFFECTS: parses given JSON representation of a Result andreturns a Result
+    // EFFECTS: parses given JSON representation of a Result and returns a Result
     private Result parseResult(JSONObject resultJson) {
         return new Result(
             resultJson.getInt("difficulty"),

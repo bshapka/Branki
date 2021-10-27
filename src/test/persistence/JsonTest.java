@@ -14,7 +14,7 @@ public class JsonTest {
 
     // EFFECTS: returns a fixed list of Deck used for testing JsonReader and JsonWriter
     public static List<Deck> getDecks() {
-        List<Deck> decks = new ArrayList<Deck>();
+        List<Deck> decks = new ArrayList<>();
         // Add three decks
         IntStream.rangeClosed(1, 3).forEach(i -> decks.add(new Deck("Deck " + i)));
         // Add four cards to the first deck

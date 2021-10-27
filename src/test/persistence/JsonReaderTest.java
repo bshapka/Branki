@@ -19,7 +19,7 @@ public class JsonReaderTest {
     @Test
     void testReadInvalidFileName() {
         JsonReader reader = new JsonReader("./data/my\0illegal:fileName.json");
-        assertThrows(InvalidPathException.class, () -> reader.read());
+        assertThrows(InvalidPathException.class, reader::read);
     }
 
     @Test

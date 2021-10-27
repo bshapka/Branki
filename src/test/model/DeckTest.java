@@ -77,7 +77,7 @@ public class DeckTest {
 
     @Test
     void testGetCardIndexNotInBounds() {
-        assertThrows(IndexOutOfBoundsException.class, () -> { deck.getCard(0); });
+        assertThrows(IndexOutOfBoundsException.class, () -> deck.getCard(0));
     }
 
     @Test
