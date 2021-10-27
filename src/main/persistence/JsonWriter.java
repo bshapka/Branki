@@ -21,7 +21,6 @@ public class JsonWriter {
         this.filePath = filePath;
     }
 
-    // MODIFIES: this
     // EFFECTS: throws FileNotFoundException if filePath cannot be found,
     //          otherwise writes JSON representation of decks to file identified by filePath
     public void write(List<Deck> decks) throws FileNotFoundException {
