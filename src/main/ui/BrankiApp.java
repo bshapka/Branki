@@ -8,6 +8,7 @@ import org.json.JSONException;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 
+import java.io.IOException;
 import java.text.MessageFormat;
 import java.time.LocalTime;
 import java.util.*;
@@ -93,6 +94,12 @@ public class BrankiApp {
                 break;
             case "s":
                 routeStudyMenu();
+                break;
+            case "w":
+                routeSaveData();
+                break;
+            case "l":
+                routeLoadData();
                 break;
             default:
                 routeQuit();
@@ -204,7 +211,7 @@ public class BrankiApp {
         }
     }
 
-    // EFFECTS: prints out all of the decks in csv format
+    // EFFECTS: prints out all the decks in csv format
     private void printDecks(List<Deck> decks) {
         if (decks.isEmpty()) {
             System.out.println("There are no decks to print!");
@@ -651,8 +658,72 @@ public class BrankiApp {
         return result;
     }
 
-    // EFFECTS: quits the application
+    // EFFECTS: attempts to save data. Notifies user of status and returns to main menu.
+    private void routeSaveData() {
+        boolean wasDataSaved = saveData();
+        if (wasDataSaved) {
+            System.out.print("Data has been saved. ");
+        } else {
+            System.out.print("Error: unable to save data. ");
+        }
+        System.out.println("Returning to main menu.");
+        printMainMenuAndProcessSelection();
+    }
+
+    // MODIFIES: this
+    // EFFECTS: attempts to write decks data to file in JSON format. Returns true if successful
+    //          and false otherwise.
+    private boolean saveData() {
+        try {
+            jsonWriter.write(decks);
+            isUnsaved = false;
+            return true;
+        } catch (IOException ex) {
+            return false;
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: attempts to load data. Notifies user of status and returns to main menu.
+    private void routeLoadData() {
+        boolean wasDataLoaded = loadData();
+        if (wasDataLoaded) {
+            System.out.print("Data has been loaded. ");
+        } else {
+            System.out.print("Error: unable to read data. ");
+        }
+        System.out.println("Returning to main menu.");
+        printMainMenuAndProcessSelection();
+    }
+
+    // EFFECTS: attempts to load decks data from file in JSON format. Returns true if successful
+    //          and false otherwise.
+    private boolean loadData() {
+        try {
+            decks = jsonReader.read();
+            isUnsaved = false;
+            return true;
+        } catch (IOException | JSONException ex) {
+            return false;
+        }
+    }
+
+    // EFFECTS: Notifies the user if there are unsaved changes and allows user to save
+    //          these changes. Then quits the application.
     private void routeQuit() {
+        if (isUnsaved) {
+            System.out.println("Warning: you have unsaved data!");
+            System.out.println("Please enter 'y' to save and quit, or enter anything else to quit without saving.");
+            String response = getStringFromUser();
+            if (response.equalsIgnoreCase("y")) {
+                boolean wasDataSaved = saveData();
+                if (wasDataSaved) {
+                    System.out.println("Data has been saved.");
+                } else {
+                    System.out.println("Error: unable to save data.");
+                }
+            }
+        }
         System.out.println("Bye for now!");
         System.exit(0);
     }
