@@ -614,13 +614,30 @@ public class BrankiApp {
             System.out.println("The selected deck has no cards to study!");
             return;
         }
+        boolean isFirstCard = true;
         for (Card card: deck.getCards()) {
+            if (sessionShouldEnd(isFirstCard)) {
+                break;
+            }
+            isFirstCard = false;
             printCardForStudySession(card);
             Result result = getResultFromUser();
             card.addResult(result);
             isUnsaved = true;
             System.out.println();
         }
+    }
+
+    // MODIFIES: isFirstCard
+    // EFFECTS: if ifFirstCard is false, prompts user to choose between quitting and continuing. If user
+    //          chooses quit, returns true. Otherwise, sets isFirstCard to false and returns false.
+    private boolean sessionShouldEnd(Boolean isFirstCard) {
+        if (!isFirstCard) {
+            System.out.println("Enter q to quit the study session or anything else to continue");
+            String response = getStringFromUser();
+            return response.equalsIgnoreCase("q");
+        }
+        return false;
     }
 
     // EFFECTS: prints question, pauses until user enters output, then prints answer
