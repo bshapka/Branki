@@ -7,4 +7,5 @@ public class LaunchConsole {
     public static void main(String[] args) {
         new Console();
     }
+
 }

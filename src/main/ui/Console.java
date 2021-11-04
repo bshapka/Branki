@@ -5,12 +5,9 @@ import model.Card;
 import model.Deck;
 import model.Result;
 import org.json.JSONException;
-import persistence.JsonReader;
-import persistence.JsonWriter;
 
 import java.io.IOException;
 import java.text.MessageFormat;
-import java.time.LocalTime;
 import java.util.*;
 import java.util.stream.IntStream;
 
@@ -24,7 +21,7 @@ public class Console extends App {
 
     // MODIFIES: this
     // EFFECTS: initializes decks to empty list, isUnsaved to false, and starts UI
-    public Console() {
+    Console() {
         decks = new ArrayList<>();
         isUnsaved = false;
         printWelcomeMessage();
@@ -33,24 +30,7 @@ public class Console extends App {
 
     // EFFECTS: prints welcome message
     private void printWelcomeMessage() {
-        int hourOfDay = LocalTime.now().getHour();
-        try {
-            String timeOfDay = getTimeOfDay(hourOfDay);
-            String welcomeMessage = MessageFormat.format("Good {0} and welcome to Branki! ", timeOfDay);
-            System.out.print(welcomeMessage);
-        } catch (IllegalArgumentException ex) {
-            System.out.print("Welcome to Branki! ");
-        }
-    }
-
-    // EFFECTS: returns the time of day based on the given hour. If given hour is not valid
-    //          (i.e. is not in [0, 23]) throws IllegalArgumentException
-    private String getTimeOfDay(int hour) throws IllegalArgumentException {
-        if (hour < 0 || hour > 23) {
-            String errorMessage = MessageFormat.format("{0} is not a valid hour", hour);
-            throw new IllegalArgumentException(errorMessage);
-        }
-        return hour < 12 ? "morning" : (hour < 18 ? "afternoon" : "evening");
+        System.out.print(getWelcomeMessage());
     }
 
     // MODIFIES: this
