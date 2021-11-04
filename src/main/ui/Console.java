@@ -15,18 +15,11 @@ import java.util.*;
 import java.util.stream.IntStream;
 
 // represents the Branki application console UI
-public class Console {
+public class Console extends App {
 
     // the first id for listing objects in tabular form
     private static final int ID_START = 1;
-    // the file path for the json file used to save state
-    private static final String JSON_FILE_PATH = "./data/decks.json";
-    // the jsonReader used to save application data to a file
-    private static final JsonReader jsonReader = new JsonReader(JSON_FILE_PATH);
-    // the jsonReader used to read saved application data from a file
-    private static final JsonWriter jsonWriter = new JsonWriter(JSON_FILE_PATH);
 
-    private List<Deck> decks;
     private boolean isUnsaved;
 
     // MODIFIES: this
