@@ -15,6 +15,6 @@ public abstract class App {
     // the jsonReader used to read saved application data from a file
     protected static final JsonWriter jsonWriter = new JsonWriter(JSON_FILE_PATH);
 
-    protected List<Deck> decks;
+    protected static List<Deck> decks;
 
 }
