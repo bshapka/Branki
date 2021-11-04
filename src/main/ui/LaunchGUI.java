@@ -5,6 +5,6 @@ public class LaunchGUI {
 
     // EFFECTS: starts GUI application
     public static void main(String[] args) {
-        new LaunchGUI();
+        new GUI();
     }
 }
