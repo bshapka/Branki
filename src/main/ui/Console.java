@@ -15,7 +15,7 @@ import java.util.*;
 import java.util.stream.IntStream;
 
 // represents the Branki application console UI
-public class BrankiApp {
+public class Console {
 
     // the first id for listing objects in tabular form
     private static final int ID_START = 1;
@@ -31,7 +31,7 @@ public class BrankiApp {
 
     // MODIFIES: this
     // EFFECTS: initializes decks to empty list, isUnsaved to false, and starts UI
-    public BrankiApp() {
+    public Console() {
         decks = new ArrayList<>();
         isUnsaved = false;
         printWelcomeMessage();
