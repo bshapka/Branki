@@ -10,9 +10,9 @@ import java.text.MessageFormat;
 class MainWindow extends JFrame {
 
     // the width of the window
-    private static final int WIDTH = 500;
+    static final int WIDTH = 500;
     // the height of the window
-    private static final int HEIGHT = WIDTH;
+    static final int HEIGHT = WIDTH;
 
     private JLabel background;
     private MainMenuBar menuBar;
