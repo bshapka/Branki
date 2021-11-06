@@ -1,5 +1,7 @@
 package ui;
 
+import model.Deck;
+
 import javax.swing.*;
 import java.io.IOException;
 import java.text.MessageFormat;
@@ -9,7 +11,9 @@ import java.util.ArrayList;
 public class GUI extends App {
 
     private static MainWindow mainWindow;
+    private static DeckSelector deckSelector;
 
+    // EFFECTS: initializes decks and mainWindow
     GUI() {
         decks = new ArrayList<>();
         mainWindow = new MainWindow();
@@ -68,6 +72,26 @@ public class GUI extends App {
         }
         int messageType = wasSuccessful ? JOptionPane.INFORMATION_MESSAGE : JOptionPane.ERROR_MESSAGE;
         JOptionPane.showMessageDialog(mainWindow, message, title, messageType);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: if there is a deck, shows deck selector. If there is no deck, displays no decks message.
+    static void showDeckSelector() {
+        if (decks.isEmpty()) {
+            JOptionPane.showMessageDialog(mainWindow,
+                    "You don't have any decks. Please create a deck to study.",
+                    "No Decks Warning", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        deckSelector = new DeckSelector(decks);
+        deckSelector.setVisible(true);
+    }
+
+    // MODIFIES: deck
+    // EFFECTS: disposes deckSelector and starts study session with deck in decks corresponding to given deckIndex
+    static void startStudySession(int deckIndex) {
+        deckSelector.dispose();
+        Deck deck = decks.get(deckIndex);
     }
 
     // EFFECTS: displays cat loaf photo in popup window
