@@ -1,32 +1,45 @@
 package ui.gui;
 
+import exceptions.DeckHasNoCardsException;
+import exceptions.NoDecksWithCardsException;
 import model.Deck;
+import ui.App;
+import ui.gui.enums.DialogMessage;
+import ui.gui.enums.PhotoPath;
+import ui.gui.views.DeckSelector;
+import ui.gui.views.MainWindow;
+import ui.gui.views.PhotoPopupWindow;
+import ui.gui.views.StudyDeckWindow;
 
 import javax.swing.*;
 import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 // represents the Branki application GUI UI
 public class GUI extends App {
 
     private static MainWindow mainWindow;
     private static DeckSelector deckSelector;
+    private static StudyDeckWindow studyDeckWindow;
 
     // EFFECTS: initializes decks and mainWindow
-    GUI() {
+    public GUI() {
         decks = new ArrayList<>();
         mainWindow = new MainWindow();
     }
 
     // MODIFIES: this
-    // EFFECTS: attempts to load data and notifies user of result by activating a popup with the result
-    static void loadDecksAndNotify() {
+    // EFFECTS: attempts to load data and notifies user of result with a popup
+    public static void loadDecksAndNotify() {
         boolean isDataLoaded = loadData();
         showDataDialog("load", isDataLoaded);
     }
 
-    // EFFECTS: attempts to load decks data from file in JSON format. Returns true if successful and false otherwise.
+    // EFFECTS: attempts to load decks data from file in JSON format. Returns true if successful
+    //          and false otherwise.
     private static boolean loadData() {
         try {
             decks = jsonReader.read();
@@ -37,14 +50,15 @@ public class GUI extends App {
     }
 
     // MODIFIES: this
-    // EFFECTS: attempts to save data and notifies user of result by activating a popup with the result
-    static void saveDecksAndNotify() {
+    // EFFECTS: attempts to save data and notifies user of result with a popup
+    public static void saveDecksAndNotify() {
         boolean isDataSaved = saveData();
         showDataDialog("save", isDataSaved);
     }
 
     // MODIFIES: this
-    // EFFECTS: attempts to write decks data to file in JSON format. Returns true if successful and false otherwise.
+    // EFFECTS: attempts to write decks data to file in JSON format. Returns true if successful
+    //          and false otherwise.
     private static boolean saveData() {
         try {
             jsonWriter.write(decks);
@@ -56,7 +70,7 @@ public class GUI extends App {
 
     // EFFECTS: displays dialog informing user of success or failure of data save or load
     //          operation (depending on arguments passed).
-    static void showDataDialog(String operation, boolean wasSuccessful) {
+    public static void showDataDialog(String operation, boolean wasSuccessful) {
         String message;
         String title;
         if (wasSuccessful) {
@@ -75,35 +89,61 @@ public class GUI extends App {
     }
 
     // MODIFIES: this
-    // EFFECTS: if there is a deck, shows deck selector. If there is no deck, displays no decks message.
-    static void showDeckSelector() {
-        if (decks.isEmpty()) {
-            JOptionPane.showMessageDialog(mainWindow,
-                    "You don't have any decks. Please create a deck to study.",
-                    "No Decks Warning", JOptionPane.WARNING_MESSAGE);
-            return;
+    // EFFECTS: if there is a deck with cards, shows deck selector. If there is no such deck,
+    //          displays no decks with cards warning.
+    public static void showDeckSelector() {
+        try {
+            List<Deck> decksWithCards = decks.stream().filter(Deck::hasCards).collect(Collectors.toList());
+            deckSelector = new DeckSelector(decksWithCards);
+            deckSelector.setVisible(true);
+        } catch (NoDecksWithCardsException ex) {
+            showNoDecksWithCardsWarning(ex);
         }
-        deckSelector = new DeckSelector(decks);
-        deckSelector.setVisible(true);
+    }
+
+    // EFFECTS: shows no decks with cards warning
+    private static void showNoDecksWithCardsWarning(NoDecksWithCardsException ex) {
+        JOptionPane.showMessageDialog(mainWindow,
+                ex.getMessage(), "No Decks with Cards Warning", JOptionPane.WARNING_MESSAGE);
     }
 
     // MODIFIES: deck
-    // EFFECTS: disposes deckSelector and starts study session with deck in decks corresponding to given deckIndex
-    static void startStudySession(int deckIndex) {
+    // EFFECTS: disposes deckSelector and shows study deck window. Shows deck has no cards error
+    //          if exception caught.
+    public static void showStudyDeckWindow(Deck deck) {
         deckSelector.dispose();
-        Deck deck = decks.get(deckIndex);
+        try {
+            studyDeckWindow = new StudyDeckWindow(deck);
+            studyDeckWindow.setVisible(true);
+        } catch (DeckHasNoCardsException ex) {
+            showStudyDeckHasNoCardsError(ex);
+        }
     }
 
-    // EFFECTS: displays cat loaf photo in popup window
-    static void showCatLoaf() {
+    // EFFECTS: shows study deck has no cards error
+    private static void showStudyDeckHasNoCardsError(DeckHasNoCardsException ex) {
+        JOptionPane.showMessageDialog(mainWindow,
+                ex.getMessage(), "No Decks with Cards Warning", JOptionPane.ERROR_MESSAGE);
+    }
+
+    // EFFECTS: shows study session completed message
+    public static void showStudyDeckWindow() {
+        studyDeckWindow.dispose();
+        JOptionPane.showMessageDialog(mainWindow,
+                DialogMessage.STUDY_SESSION_COMPLETE.getMessage(),
+                "Study Session Complete", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    // EFFECTS: shows cat loaf photo in popup window
+    public static void showCatLoaf() {
         String path = PhotoPath.CAT_LOAF.getPath();
-        new PhotoPopup(path);
+        new PhotoPopupWindow(path);
     }
 
-    // EFFECTS: displays Toby photo in popup window
-    static void showToby() {
+    // EFFECTS: shows Toby photo in popup window
+    public static void showToby() {
         String path = PhotoPath.TOBY.getPath();
-        new PhotoPopup(path);
+        new PhotoPopupWindow(path);
     }
 
 }
