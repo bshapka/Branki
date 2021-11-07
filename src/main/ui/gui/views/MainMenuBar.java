@@ -6,10 +6,10 @@ import javax.swing.*;
 import java.util.Arrays;
 
 // represents the menu bar associated with the main menu
-class MainMenuBar extends JMenuBar {
+public class MainMenuBar extends JMenuBar {
 
     // EFFECTS: adds menus along with menu items
-    MainMenuBar() {
+    public MainMenuBar() {
         addMenus();
         addDecksMenuItems();
         addCardsMenuItems();
