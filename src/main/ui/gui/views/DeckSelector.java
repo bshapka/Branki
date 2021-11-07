@@ -20,7 +20,7 @@ public class DeckSelector extends JFrame {
     // EFFECTS: throws NoDecksWithCardsException if decksWithCards contains a deck with no cards,
     //          otherwise configures list, button, panel, and frame
     public DeckSelector(List<Deck> decksWithCards) throws NoDecksWithCardsException {
-        if (!decksWithCards.stream().allMatch(Deck::hasCards)) {
+        if (decksWithCards.size() == 0 || !decksWithCards.stream().allMatch(Deck::hasCards)) {
             throw new NoDecksWithCardsException(DialogMessage.NO_DECKS_WITH_CARDS.getMessage());
         }
         this.decksWithCards = decksWithCards;
