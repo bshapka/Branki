@@ -1,4 +1,6 @@
-package ui;
+package ui.gui.views;
+
+import ui.gui.GUI;
 
 import javax.swing.*;
 import java.util.Arrays;

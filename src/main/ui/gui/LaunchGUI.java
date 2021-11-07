@@ -1,4 +1,4 @@
-package ui;
+package ui.gui;
 
 // main entry point for GUI application
 public class LaunchGUI {

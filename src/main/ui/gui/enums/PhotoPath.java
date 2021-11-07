@@ -1,4 +1,4 @@
-package ui;
+package ui.gui.enums;
 
 // enum for representing the file paths associated with photos
 public enum PhotoPath {

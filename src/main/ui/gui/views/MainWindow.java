@@ -1,4 +1,4 @@
-package ui;
+package ui.gui.views;
 
 import com.apple.eawt.Application;
 
