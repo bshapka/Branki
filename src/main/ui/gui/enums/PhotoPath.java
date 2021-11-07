@@ -1,6 +1,6 @@
 package ui.gui.enums;
 
-// enum for representing the file paths associated with photos
+// represents various file paths for photos
 public enum PhotoPath {
 
     CAT_LOAF("cat_loaf.png"),
