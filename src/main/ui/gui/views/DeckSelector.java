@@ -1,23 +1,32 @@
 package ui.gui.views;
 
+import exceptions.NoDecksWithCardsException;
 import model.Deck;
+import ui.gui.GUI;
+import ui.gui.enums.DialogMessage;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 
+// represents a deck selector for selecting a deck from a given lists of decks
 public class DeckSelector extends JFrame {
 
     private JPanel panel;
     private JList list;
     private JButton submitButton;
+    private List<Deck> decksWithCards;
 
-    // EFFECTS: sets name and close behaviour of frame, sets up list, submit button, and panel, adds panel,
-    //          and sets size of frame
-    DeckSelector(List<Deck> decks) {
+    // EFFECTS: throws NoDecksWithCardsException if decksWithCards contains a deck with no cards,
+    //          otherwise configures list, button, panel, and frame
+    public DeckSelector(List<Deck> decksWithCards) throws NoDecksWithCardsException {
+        if (!decksWithCards.stream().allMatch(Deck::hasCards)) {
+            throw new NoDecksWithCardsException(DialogMessage.NO_DECKS_WITH_CARDS.getMessage());
+        }
+        this.decksWithCards = decksWithCards;
         setName("Study Deck Selection");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setupList(decks);
+        setupList(decksWithCards);
         setupSubmitButton();
         setupPanel();
         add(panel);
@@ -38,11 +47,11 @@ public class DeckSelector extends JFrame {
     // EFFECTS: instantiates button with set text, and adds action listener
     private void setupSubmitButton() {
         submitButton = new JButton("Select");
-        submitButton.addActionListener(e -> GUI.startStudySession(list.getSelectedIndex()));
+        submitButton.addActionListener(e -> GUI.showStudyDeckWindow(decksWithCards.get(list.getSelectedIndex())));
     }
 
     // MODIFIES: this
-    // EFFECTS: instantiates list with deck names in decks and sets some configuration options
+    // EFFECTS: instantiates list with deck names in decks and sets configuration options
     private void setupList(List<Deck> decks) {
         list = new JList(decks.stream().map(Deck::getName).toArray());
         list.setVisibleRowCount(5);
