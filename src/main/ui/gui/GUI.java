@@ -127,7 +127,7 @@ public class GUI extends App {
     }
 
     // EFFECTS: shows study session completed message
-    public static void showStudyDeckWindow() {
+    public static void showStudySessionCompleteMessage() {
         studyDeckWindow.dispose();
         JOptionPane.showMessageDialog(mainWindow,
                 DialogMessage.STUDY_SESSION_COMPLETE.getMessage(),

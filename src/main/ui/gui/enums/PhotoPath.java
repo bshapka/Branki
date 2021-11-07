@@ -13,7 +13,7 @@ public enum PhotoPath {
         this.path = "./images/" + fileName;
     }
 
-    // EFEFCTS: returns path
+    // EFFECTS: returns path
     public String getPath() {
         return path;
     }

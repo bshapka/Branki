@@ -1,7 +1,5 @@
 package ui.console;
 
-import ui.console.Console;
-
 // main entry point for console application
 public class LaunchConsole {
 

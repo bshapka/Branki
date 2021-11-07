@@ -155,7 +155,7 @@ public class StudyDeckWindow extends JFrame {
             currentCard.addResult(new Result(difficulty));
             boolean nextCardShown = showNextCard();
             if (!nextCardShown) {
-                GUI.showStudyDeckWindow();
+                GUI.showStudySessionCompleteMessage();
             }
         } catch (InvalidResultDifficultyException ex) {
             JOptionPane.showMessageDialog(this,

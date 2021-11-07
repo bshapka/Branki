@@ -43,7 +43,7 @@ public abstract class App {
             throw (new IllegalArgumentException(errorMessage));
         }
         String timeOfDay;
-        timeOfDay = hour < 12 ? "morning" : (hour < 18 ? "afternon" : "evening");
+        timeOfDay = hour < 12 ? "morning" : (hour < 18 ? "afternoon" : "evening");
         return timeOfDay;
     }
 

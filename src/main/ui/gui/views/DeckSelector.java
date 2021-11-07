@@ -15,7 +15,7 @@ public class DeckSelector extends JFrame {
     private JPanel panel;
     private JList list;
     private JButton submitButton;
-    private List<Deck> decksWithCards;
+    private final List<Deck> decksWithCards;
 
     // EFFECTS: throws NoDecksWithCardsException if decksWithCards contains a deck with no cards,
     //          otherwise configures list, button, panel, and frame

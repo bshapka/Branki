@@ -1,8 +1,6 @@
 package ui.gui.views;
 
-import com.apple.eawt.Application;
 import ui.App;
-import ui.gui.views.MainMenuBar;
 
 import javax.swing.*;
 import java.awt.*;
@@ -43,7 +41,6 @@ public class MainWindow extends JFrame {
     private void setupIcon() {
         ImageIcon icon = new ImageIcon("./images/icon.png");
         this.setIconImage(icon.getImage());
-        Application.getApplication().setDockIconImage(icon.getImage()); // sets dock icon for Macs
     }
 
     // MODIFIES: this

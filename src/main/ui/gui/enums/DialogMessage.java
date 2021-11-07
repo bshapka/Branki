@@ -19,7 +19,7 @@ public enum DialogMessage {
         this.message = message;
     }
 
-    // EFEFCTS: returns path
+    // EFFECTS: returns path
     public String getMessage() {
         return message;
     }
