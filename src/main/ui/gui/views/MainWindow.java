@@ -1,25 +1,27 @@
 package ui.gui.views;
 
 import com.apple.eawt.Application;
+import ui.App;
+import ui.gui.views.MainMenuBar;
 
 import javax.swing.*;
 import java.awt.*;
 import java.text.MessageFormat;
 
 // represents a main window of the GUI application
-class MainWindow extends JFrame {
+public class MainWindow extends JFrame {
 
     // the width of the window
-    static final int WIDTH = 500;
+    public static final int WIDTH = 500;
     // the height of the window
-    static final int HEIGHT = WIDTH;
+    public static final int HEIGHT = WIDTH;
 
     private JLabel background;
     private MainMenuBar menuBar;
 
     // MODIFIES: this
     // EFFECTS: sets up frame, icon, background, menu bar, and sets frame visible
-    MainWindow() {
+    public MainWindow() {
         setupFrame();
         setupIcon();
         setupBackground();
