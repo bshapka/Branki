@@ -2,14 +2,14 @@ package ui.gui.views;
 
 import javax.swing.*;
 
-// represents a popup pane that displays a photo
-public class PhotoPopup {
+// represents a popup window that displays a photo
+public class PhotoPopupWindow {
 
     private final JDialog dialog;
     private final JLabel label;
 
     // EFFECTS: constructs PhotoPopup using given filePath
-    PhotoPopup(String filePath) {
+    public PhotoPopupWindow(String filePath) {
         dialog = new JDialog();
         label = new JLabel(new ImageIcon(filePath));
         dialog.add(label);
