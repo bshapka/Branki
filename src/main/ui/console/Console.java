@@ -1,10 +1,11 @@
-package ui;
+package ui.console;
 
 import exceptions.InvalidResultDifficultyException;
 import model.Card;
 import model.Deck;
 import model.Result;
 import org.json.JSONException;
+import ui.App;
 
 import java.io.IOException;
 import java.text.MessageFormat;
