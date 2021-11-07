@@ -12,9 +12,9 @@ import java.util.List;
 public abstract class App {
 
     // the name of the application
-    protected static final String APP_NAME = "Branki";
+    public static final String APP_NAME = "Branki";
     // the file path for the json file used to save state
-    protected static final String JSON_FILE_PATH = "./data/decks.json";
+    public static final String JSON_FILE_PATH = "./data/decks.json";
     // the jsonReader used to save application data to a file
     protected static final JsonReader jsonReader = new JsonReader(JSON_FILE_PATH);
     // the jsonReader used to read saved application data from a file
@@ -23,7 +23,7 @@ public abstract class App {
     protected static List<Deck> decks;
 
     // EFFECTS: returns welcome message
-    protected static String getWelcomeMessage() {
+    public static String getWelcomeMessage() {
         String welcomeMessage;
         int hourOfDay = LocalTime.now().getHour();
         try {
