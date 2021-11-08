@@ -1,6 +1,7 @@
-package ui.gui.views;
+package ui.gui.views.selectors;
 
 import model.Deck;
+import ui.gui.views.windows.main.MainWindow;
 
 import javax.swing.*;
 import java.awt.*;

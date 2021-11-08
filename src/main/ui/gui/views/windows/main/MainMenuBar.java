@@ -1,4 +1,4 @@
-package ui.gui.views;
+package ui.gui.views.windows.main;
 
 import ui.gui.GUI;
 

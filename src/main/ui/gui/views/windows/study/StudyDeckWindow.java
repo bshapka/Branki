@@ -1,4 +1,4 @@
-package ui.gui.views;
+package ui.gui.views.windows.study;
 
 import exceptions.DeckHasNoCardsException;
 import exceptions.InvalidResultDifficultyException;
@@ -7,6 +7,7 @@ import model.Deck;
 import model.Result;
 import ui.gui.GUI;
 import ui.gui.enums.DialogMessage;
+import ui.gui.views.windows.main.MainWindow;
 
 import javax.swing.*;
 import java.awt.*;

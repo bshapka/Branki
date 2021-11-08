@@ -1,9 +1,10 @@
-package ui.gui.views;
+package ui.gui.views.selectors;
 
 import exceptions.NoDecksException;
 import model.Deck;
 import ui.gui.GUI;
 import ui.gui.enums.DialogMessage;
+import ui.gui.views.selectors.DeckSelector;
 
 import javax.swing.*;
 import java.util.List;

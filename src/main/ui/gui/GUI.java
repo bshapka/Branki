@@ -6,7 +6,14 @@ import model.Deck;
 import ui.App;
 import ui.gui.enums.DialogMessage;
 import ui.gui.enums.PhotoPath;
-import ui.gui.views.*;
+import ui.gui.views.selectors.DeckSelector;
+import ui.gui.views.selectors.EditDeckSelector;
+import ui.gui.views.selectors.StudyDeckSelector;
+import ui.gui.views.windows.deck.CreateDeckWindow;
+import ui.gui.views.windows.deck.EditDeckWindow;
+import ui.gui.views.windows.main.MainWindow;
+import ui.gui.views.windows.photo.PhotoPopupWindow;
+import ui.gui.views.windows.study.StudyDeckWindow;
 
 import javax.swing.*;
 import java.io.IOException;
