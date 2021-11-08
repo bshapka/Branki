@@ -2,7 +2,6 @@ package ui.gui.views;
 
 import exceptions.NoDecksWithCardsException;
 import model.Deck;
-import ui.gui.GUI;
 import ui.gui.enums.DialogMessage;
 
 import javax.swing.*;
@@ -10,12 +9,12 @@ import java.awt.*;
 import java.util.List;
 
 // represents a deck selector for selecting a deck from a given lists of decks
-public class DeckSelector extends JFrame {
+public abstract class DeckSelector extends JFrame {
 
     private JPanel panel;
-    private JList list;
-    private JButton submitButton;
-    private final List<Deck> decksWithCards;
+    protected JList list;
+    protected JButton submitButton;
+    protected final List<Deck> decksWithCards;
 
     // EFFECTS: throws NoDecksWithCardsException if decksWithCards contains a deck with no cards,
     //          otherwise configures list, button, panel, and frame
@@ -45,10 +44,7 @@ public class DeckSelector extends JFrame {
 
     // MODIFIES: this
     // EFFECTS: instantiates button with set text, and adds action listener
-    private void setupSubmitButton() {
-        submitButton = new JButton("Select");
-        submitButton.addActionListener(e -> GUI.showStudyDeckWindow(decksWithCards.get(list.getSelectedIndex())));
-    }
+    protected abstract void setupSubmitButton();
 
     // MODIFIES: this
     // EFFECTS: instantiates list with deck names in decks and sets configuration options

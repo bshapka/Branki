@@ -6,10 +6,7 @@ import model.Deck;
 import ui.App;
 import ui.gui.enums.DialogMessage;
 import ui.gui.enums.PhotoPath;
-import ui.gui.views.DeckSelector;
-import ui.gui.views.MainWindow;
-import ui.gui.views.PhotoPopupWindow;
-import ui.gui.views.StudyDeckWindow;
+import ui.gui.views.*;
 
 import javax.swing.*;
 import java.io.IOException;
@@ -22,7 +19,7 @@ import java.util.stream.Collectors;
 public class GUI extends App {
 
     private static MainWindow mainWindow;
-    private static DeckSelector deckSelector;
+    private static DeckSelector studyDeckSelector;
     private static StudyDeckWindow studyDeckWindow;
 
     // EFFECTS: initializes decks and mainWindow
@@ -89,13 +86,13 @@ public class GUI extends App {
     }
 
     // MODIFIES: this
-    // EFFECTS: if there is a deck with cards, shows deck selector. If there is no such deck,
+    // EFFECTS: if there is a deck with cards, shows study deck selector. If there is no such deck,
     //          displays no decks with cards warning.
-    public static void showDeckSelector() {
+    public static void showStudyDeckSelector() {
         try {
             List<Deck> decksWithCards = decks.stream().filter(Deck::hasCards).collect(Collectors.toList());
-            deckSelector = new DeckSelector(decksWithCards);
-            deckSelector.setVisible(true);
+            studyDeckSelector = new StudyDeckSelector(decksWithCards);
+            studyDeckSelector.setVisible(true);
         } catch (NoDecksWithCardsException ex) {
             showNoDecksWithCardsWarning(ex);
         }
@@ -111,7 +108,7 @@ public class GUI extends App {
     // EFFECTS: disposes deckSelector and shows study deck window. Shows deck has no cards error
     //          if exception caught.
     public static void showStudyDeckWindow(Deck deck) {
-        deckSelector.dispose();
+        studyDeckSelector.dispose();
         try {
             studyDeckWindow = new StudyDeckWindow(deck);
             studyDeckWindow.setVisible(true);

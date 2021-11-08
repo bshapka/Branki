@@ -75,7 +75,7 @@ public class MainMenuBar extends JMenuBar {
     // EFFECTS: adds action listener to menuItem
     private void addStudyMenuItemActionListener(JMenuItem menuItem, String name) {
         if (name.equals("Start Session")) {
-            menuItem.addActionListener(e -> GUI.showDeckSelector());
+            menuItem.addActionListener(e -> GUI.showStudyDeckSelector());
         }
     }
 
