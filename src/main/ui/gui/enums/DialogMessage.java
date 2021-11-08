@@ -16,7 +16,8 @@ public enum DialogMessage {
     NO_DECKS(MessageFormat.format(
             "<html>{0}<br>{1}</html>",
             "You don't have any decks.",
-            "Please ensure there is a deck and retry."));
+            "Please ensure there is a deck and retry.")),
+    DECK_CREATED("A deck has been created.");
 
     private final String message;
 

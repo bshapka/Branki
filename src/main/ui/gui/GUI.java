@@ -19,6 +19,7 @@ import java.util.stream.Collectors;
 public class GUI extends App {
 
     private static MainWindow mainWindow;
+    private static CreateDeckWindow createDeckWindow;
     private static DeckSelector studyDeckSelector;
     private static DeckSelector editDeckSelector;
     private static StudyDeckWindow studyDeckWindow;
@@ -30,8 +31,22 @@ public class GUI extends App {
         mainWindow = new MainWindow();
     }
 
+    // MODIFIES: this
+    // EFFECTS: instantiates and shows createDeckWindow
     public static void showCreateDeckWindow() {
-        // stub
+        createDeckWindow = new CreateDeckWindow();
+        createDeckWindow.setVisible(true);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: disposes createDeckWindow, creates deck with given name, adds deck to decks,
+    //          and shows deck created message
+    public static void createDeck(String name) {
+        createDeckWindow.dispose();
+        Deck deck = new Deck(name);
+        decks.add(deck);
+        JOptionPane.showMessageDialog(mainWindow,
+                DialogMessage.DECK_CREATED.getMessage(), "Deck Created", JOptionPane.INFORMATION_MESSAGE);
     }
 
     // MODIFIES: this
@@ -191,4 +206,5 @@ public class GUI extends App {
         JOptionPane.showMessageDialog(mainWindow,
                 DialogMessage.DECK_DELETED.getMessage(), "Deck Deleted", JOptionPane.INFORMATION_MESSAGE);
     }
+
 }
