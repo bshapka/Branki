@@ -29,19 +29,30 @@ public class MainMenuBar extends JMenuBar {
     // MODIFIES: this
     // EFFECTS: adds menu items to decks menu in this
     private void addDecksMenuItems() {
-        String[] menuItemNames = new String[]{
-                "View", "Create", "Modify", "Delete"};
+        String[] menuItemNames = new String[]{"Create", "Edit"};
         Arrays.stream(menuItemNames).forEach(name -> {
             JMenuItem menuItem = new JMenuItem(name);
             this.getMenu(0).add(menuItem);
+            addDeckMenuItemActionListener(menuItem, name);
         });
+    }
+
+    // REQUIRES: menuItem is not null, name is "Manage"
+    // MODIFIES: menuItem
+    // EFFECTS: adds action listener to menuItem
+    private void addDeckMenuItemActionListener(JMenuItem menuItem, String name) {
+        if (name.equals("Create")) {
+            menuItem.addActionListener(e -> GUI.showCreateDeckWindow());
+        }
+        if (name.equals("Edit")) {
+            menuItem.addActionListener(e -> GUI.showEditDeckSelector());
+        }
     }
 
     // MODIFIES: this
     // EFFECTS: adds menu items to cards menu in this
     private void addCardsMenuItems() {
-        String[] menuItemNames = new String[]{
-                "View", "Create", "Modify", "Delete"};
+        String[] menuItemNames = new String[]{"Edit"};
         Arrays.stream(menuItemNames).forEach(name -> {
             JMenuItem menuItem = new JMenuItem(name);
             this.getMenu(1).add(menuItem);
