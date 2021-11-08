@@ -1,7 +1,7 @@
 package ui.gui;
 
 import exceptions.DeckHasNoCardsException;
-import exceptions.NoDecksWithCardsException;
+import exceptions.NoDecksException;
 import model.Deck;
 import ui.App;
 import ui.gui.enums.DialogMessage;
@@ -20,12 +20,43 @@ public class GUI extends App {
 
     private static MainWindow mainWindow;
     private static DeckSelector studyDeckSelector;
+    private static DeckSelector editDeckSelector;
     private static StudyDeckWindow studyDeckWindow;
+    private static EditDeckWindow editDeckWindow;
 
     // EFFECTS: initializes decks and mainWindow
     public GUI() {
         decks = new ArrayList<>();
         mainWindow = new MainWindow();
+    }
+
+    public static void showCreateDeckWindow() {
+        // stub
+    }
+
+    // MODIFIES: this
+    // EFFECTS: if there is a deck shows editDeckSelector. If there is not a deck,
+    //          displays no decks warning.
+    public static void showEditDeckSelector() {
+        try {
+            editDeckSelector = new EditDeckSelector(decks);
+            editDeckSelector.setVisible(true);
+        } catch (NoDecksException ex) {
+            showNoDecksWarning(ex);
+        }
+    }
+
+    // EFFECTS: shows no decks warning
+    private static void showNoDecksWarning(NoDecksException ex) {
+        JOptionPane.showMessageDialog(mainWindow,
+                ex.getMessage(), "No Decks Warning", JOptionPane.WARNING_MESSAGE);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: disposes editDeckSelector and shows editDeckWindow
+    public static void showEditDeckWindow(Deck deck) {
+        editDeckWindow = new EditDeckWindow(deck);
+        editDeckWindow.setVisible(true);
     }
 
     // MODIFIES: this
@@ -86,27 +117,27 @@ public class GUI extends App {
     }
 
     // MODIFIES: this
-    // EFFECTS: if there is a deck with cards, shows study deck selector. If there is no such deck,
-    //          displays no decks with cards warning.
+    // EFFECTS: if there is a deck with cards, instantiates and shows studyDeckSelector.
+    //          If there is no such deck, displays no decks with cards warning.
     public static void showStudyDeckSelector() {
         try {
             List<Deck> decksWithCards = decks.stream().filter(Deck::hasCards).collect(Collectors.toList());
             studyDeckSelector = new StudyDeckSelector(decksWithCards);
             studyDeckSelector.setVisible(true);
-        } catch (NoDecksWithCardsException ex) {
+        } catch (NoDecksException ex) {
             showNoDecksWithCardsWarning(ex);
         }
     }
 
     // EFFECTS: shows no decks with cards warning
-    private static void showNoDecksWithCardsWarning(NoDecksWithCardsException ex) {
+    private static void showNoDecksWithCardsWarning(NoDecksException ex) {
         JOptionPane.showMessageDialog(mainWindow,
                 ex.getMessage(), "No Decks with Cards Warning", JOptionPane.WARNING_MESSAGE);
     }
 
     // MODIFIES: deck
-    // EFFECTS: disposes deckSelector and shows study deck window. Shows deck has no cards error
-    //          if exception caught.
+    // EFFECTS: disposes studyDeckSelector and instantiates and shows studyDeckWindow.
+    //          Shows deck has no cards error if DeckHasNoCardsException caught.
     public static void showStudyDeckWindow(Deck deck) {
         studyDeckSelector.dispose();
         try {
@@ -143,4 +174,21 @@ public class GUI extends App {
         new PhotoPopupWindow(path);
     }
 
+    // MODIFIES: this
+    // EFFECTS: updates name of given deck to given name and shows deck updated message
+    public static void updateDeck(String name, Deck deck) {
+        editDeckWindow.dispose();
+        deck.setName(name);
+        JOptionPane.showMessageDialog(mainWindow,
+                DialogMessage.DECK_UPDATED.getMessage(), "Deck Updated", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: removes given deck from decks and shows deck deleted message
+    public static void deleteDeck(Deck deck) {
+        editDeckWindow.dispose();
+        decks.remove(deck);
+        JOptionPane.showMessageDialog(mainWindow,
+                DialogMessage.DECK_DELETED.getMessage(), "Deck Deleted", JOptionPane.INFORMATION_MESSAGE);
+    }
 }
