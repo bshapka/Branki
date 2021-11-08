@@ -1,8 +1,6 @@
 package ui.gui.views;
 
-import exceptions.NoDecksWithCardsException;
 import model.Deck;
-import ui.gui.enums.DialogMessage;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,18 +12,14 @@ public abstract class DeckSelector extends JFrame {
     private JPanel panel;
     protected JList list;
     protected JButton submitButton;
-    protected final List<Deck> decksWithCards;
+    protected final List<Deck> decks;
 
-    // EFFECTS: throws NoDecksWithCardsException if decksWithCards contains a deck with no cards,
-    //          otherwise configures list, button, panel, and frame
-    public DeckSelector(List<Deck> decksWithCards) throws NoDecksWithCardsException {
-        if (decksWithCards.size() == 0 || !decksWithCards.stream().allMatch(Deck::hasCards)) {
-            throw new NoDecksWithCardsException(DialogMessage.NO_DECKS_WITH_CARDS.getMessage());
-        }
-        this.decksWithCards = decksWithCards;
+    // EFFECTS: configures list, button, panel, and frame
+    public DeckSelector(List<Deck> decks) {
+        this.decks = decks;
         setName("Study Deck Selection");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setupList(decksWithCards);
+        setupList(decks);
         setupSubmitButton();
         setupPanel();
         add(panel);
