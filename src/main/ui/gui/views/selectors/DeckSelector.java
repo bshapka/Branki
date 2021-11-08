@@ -18,7 +18,7 @@ public abstract class DeckSelector extends JFrame {
     // EFFECTS: configures list, button, panel, and frame
     public DeckSelector(List<Deck> decks) {
         this.decks = decks;
-        setName("Study Deck Selection");
+        setName("Deck Selection");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setupList(decks);
         setupSubmitButton();
