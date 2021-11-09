@@ -42,8 +42,7 @@ public class MainMenuBar extends JMenuBar {
     private void addDeckMenuItemActionListener(JMenuItem menuItem, String name) {
         if (name.equals("Create")) {
             menuItem.addActionListener(e -> GUI.showCreateDeckWindow());
-        }
-        if (name.equals("Edit")) {
+        } else if (name.equals("Edit")) {
             menuItem.addActionListener(e -> GUI.showEditDeckSelector());
         }
     }
@@ -64,8 +63,7 @@ public class MainMenuBar extends JMenuBar {
     private void addCardMenuItemActionListener(JMenuItem menuItem, String name) {
         if (name.equals("Create")) {
             menuItem.addActionListener(e -> GUI.showCreateCardDeckSelector());
-        }
-        if (name.equals("Edit")) {
+        } else if (name.equals("Edit")) {
             menuItem.addActionListener(e -> GUI.showEditCardDeckSelector());
         }
     }
@@ -105,8 +103,7 @@ public class MainMenuBar extends JMenuBar {
     private void addDataMenuItemActionListener(JMenuItem menuItem, String name) {
         if (name.equals("Save")) {
             menuItem.addActionListener(e -> GUI.saveDecksAndNotify());
-        }
-        if (name.equals("Load")) {
+        } else if (name.equals("Load")) {
             menuItem.addActionListener(e -> GUI.loadDecksAndNotify());
         }
     }
@@ -127,8 +124,7 @@ public class MainMenuBar extends JMenuBar {
     private void addBreakMenuItemActionListener(JMenuItem menuItem, String name) {
         if (name.equals("Cat Loaf")) {
             menuItem.addActionListener(e -> GUI.showCatLoaf());
-        }
-        if (name.equals("Toby")) {
+        } else if (name.equals("Toby")) {
             menuItem.addActionListener(e -> GUI.showToby());
         }
     }
