@@ -1,10 +1,12 @@
 package ui.gui;
 
 import exceptions.DeckHasNoCardsException;
+import exceptions.InvalidResultDifficultyException;
 import exceptions.NoDecksException;
 import exceptions.NoDecksWithCardsException;
 import model.Card;
 import model.Deck;
+import model.Result;
 import ui.App;
 import ui.gui.enums.DialogMessage;
 import ui.gui.enums.PhotoPath;
@@ -41,10 +43,12 @@ public class GUI extends App {
     private static EditCardWindow editCardWindow;
     private static StudyDeckWindow studyDeckWindow;
     private static EditDeckWindow editDeckWindow;
+    private static boolean isUnsaved;
 
-    // EFFECTS: initializes decks and instantiates mainWindow
+    // EFFECTS: initializes decks to empty list, isUnsaved to false, and instantiates mainWindow
     public GUI() {
         decks = new ArrayList<>();
+        isUnsaved = false;
         mainWindow = new MainWindow();
     }
 
@@ -57,11 +61,12 @@ public class GUI extends App {
 
     // MODIFIES: this
     // EFFECTS: disposes createDeckWindow, creates deck with given name, adds deck to decks,
-    //          and shows deck created message
+    //          sets isUnsaved to true, and shows deck created message
     public static void createDeck(String name) {
         createDeckWindow.dispose();
         Deck deck = new Deck(name);
         decks.add(deck);
+        isUnsaved = true;
         JOptionPane.showMessageDialog(mainWindow,
                 DialogMessage.DECK_CREATED.getMessage(), "Deck Created", JOptionPane.INFORMATION_MESSAGE);
     }
@@ -91,19 +96,23 @@ public class GUI extends App {
     }
 
     // MODIFIES: this
-    // EFFECTS: disposes editDeckWindow, updates name of given deck to given name, and shows deck updated message
+    // EFFECTS: disposes editDeckWindow, updates name of given deck to given name, sets isUnsaved to true,
+    //          and shows deck updated message
     public static void updateDeck(String name, Deck deck) {
         editDeckWindow.dispose();
         deck.setName(name);
+        isUnsaved = true;
         JOptionPane.showMessageDialog(mainWindow,
                 DialogMessage.DECK_UPDATED.getMessage(), "Deck Updated", JOptionPane.INFORMATION_MESSAGE);
     }
 
     // MODIFIES: this
-    // EFFECTS: disposes editDeckWindow, removes given deck from decks, and shows deck deleted message
+    // EFFECTS: disposes editDeckWindow, removes given deck from decks, sets isUnsaved to true,
+    //          and shows deck deleted message
     public static void deleteDeck(Deck deck) {
         editDeckWindow.dispose();
         decks.remove(deck);
+        isUnsaved = true;
         JOptionPane.showMessageDialog(mainWindow,
                 DialogMessage.DECK_DELETED.getMessage(), "Deck Deleted", JOptionPane.INFORMATION_MESSAGE);
     }
@@ -129,11 +138,12 @@ public class GUI extends App {
 
     // MODIFIES: deck
     // EFFECTS: disposes createCardWindow, creates card with given question and answer, adds it to the given deck,
-    //          and shows card created message
+    //          sets isUnsaved to true, and shows card created message
     public static void createCard(Deck deck, String question, String answer) {
         createCardWindow.dispose();
         Card card = new Card(question, answer);
         deck.addCard(card);
+        isUnsaved = true;
         JOptionPane.showMessageDialog(mainWindow,
                 DialogMessage.CARD_CREATED.getMessage(), "Card Created", JOptionPane.INFORMATION_MESSAGE);
     }
@@ -170,20 +180,23 @@ public class GUI extends App {
 
     // MODIFIES: this
     // EFFECTS: disposes editCardWindow, updates question and answer of given card to given question and answer,
-    //          and shows card updated message
+    //          sets isUnsaved to true, and shows card updated message
     public static void updateCard(String question, String answer, Card card) {
         editCardWindow.dispose();
         card.setQuestion(question);
         card.setAnswer(answer);
+        isUnsaved = true;
         JOptionPane.showMessageDialog(mainWindow,
                 DialogMessage.CARD_UPDATED.getMessage(), "Card Updated", JOptionPane.INFORMATION_MESSAGE);
     }
 
     // MODIFIES: deck
-    // EFFECTS: disposes editCardWindow, deletes given card from given deck, and shows card deleted message
+    // EFFECTS: disposes editCardWindow, deletes given card from given deck, sets isUnsaved to true,
+    //          and shows card deleted message
     public static void deleteCard(Deck deck, Card card) {
         editCardWindow.dispose();
         deck.removeCard(card);
+        isUnsaved = true;
         JOptionPane.showMessageDialog(mainWindow,
                 DialogMessage.CARD_DELETED.getMessage(), "Card Deleted", JOptionPane.INFORMATION_MESSAGE);
     }
@@ -195,11 +208,12 @@ public class GUI extends App {
         showDataDialog("load", isDataLoaded);
     }
 
-    // EFFECTS: attempts to load decks data from file in JSON format. Returns true if successful
-    //          and false otherwise.
+    // EFFECTS: attempts to load decks data from file in JSON format. Sets isUnsaved to false and returns true
+    //          if successful, otherwise just returns false.
     private static boolean loadData() {
         try {
             decks = jsonReader.read();
+            isUnsaved = false;
             return true;
         } catch (IOException ex) {
             return false;
@@ -214,11 +228,12 @@ public class GUI extends App {
     }
 
     // MODIFIES: this
-    // EFFECTS: attempts to write decks data to file in JSON format. Returns true if successful
-    //          and false otherwise.
+    // EFFECTS: attempts to write decks data to file in JSON format. Sets isUnsaved to false and returns true
+    //          if successful, otherwise just returns false.
     private static boolean saveData() {
         try {
             jsonWriter.write(decks);
+            isUnsaved = false;
             return true;
         } catch (IOException ex) {
             return false;
@@ -284,6 +299,20 @@ public class GUI extends App {
                 ex.getMessage(), "No Decks with Cards Error", JOptionPane.ERROR_MESSAGE);
     }
 
+    // MODIFIES: this
+    // EFFECTS: if InvalidResultDifficultyException is thrown displays error,
+    //          else adds result with given difficulty to given card and sets isUnsaved to true
+    public static void addResult(int difficulty, Card currentCard) {
+        try {
+            Result result = new Result(difficulty);
+            currentCard.addResult(result);
+            isUnsaved = true;
+        } catch (InvalidResultDifficultyException ex) {
+            JOptionPane.showMessageDialog(mainWindow,
+                    ex.getMessage(), "Invalid Difficulty Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
     // EFFECTS: disposes studyDeckWindow and shows study session completed message
     public static void showStudySessionCompleteMessage() {
         studyDeckWindow.dispose();
@@ -305,19 +334,19 @@ public class GUI extends App {
     }
 
     // MODIFIES: this
-    // EFFECTS: shows an option pane. If Save & Quit is selected, the data is saved and the app is quit.
-    //          If Quit Only is selected, the app is quit (without saving data).
-    //          If cancel is selected, nothing is done.
+    // EFFECTS: if there is unsaved data, shows an option pane with Save & Quit and Quit Only options.
+    //          The former option saves the data before quitting, while the latter just quits.
     public static void quitApp() {
-        String[] options = { "Save & Quit", "Quit Only", "Cancel" };
-        int result = JOptionPane.showOptionDialog(mainWindow, DialogMessage.CLOSE_APP.getMessage(), "Quit App",
-                JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE,
-                null, options, options[0]);
-        switch (result) {
-            case 0:
+        if (isUnsaved) {
+            String[] options = { "Save & Quit", "Quit Only"};
+            int result = JOptionPane.showOptionDialog(mainWindow, DialogMessage.CLOSE_APP.getMessage(), "Quit App",
+                    JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE,
+                    null, options, options[0]);
+            if (result == 0) {
                 saveDecksAndNotify();
-            case 1:
-                System.exit(0);
+            }
         }
+        System.exit(0);
     }
+
 }
