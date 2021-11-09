@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 // represents a card with a question, an answer, and a list of results
-public class Card {
+public class Card implements Selectable {
 
     private String question;
     private String answer;
@@ -21,6 +21,13 @@ public class Card {
 
     // EFFECTS: returns question
     public String getQuestion() {
+        return question;
+    }
+
+    @Override
+    @JSONPropertyIgnore
+    // EFFECTS: returns question as description
+    public String getDescription() {
         return question;
     }
 

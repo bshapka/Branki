@@ -25,6 +25,11 @@ public class DeckTest {
     }
 
     @Test
+    void testGetDescription() {
+        assertEquals(DEFAULT_NAME, deck.getDescription());
+    }
+
+    @Test
     void testGetCardsEmpty() {
         assertTrue(deck.getCards().isEmpty());
     }

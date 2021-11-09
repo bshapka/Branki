@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 // represents a deck with a name and a list of cards
-public class Deck {
+public class Deck implements Selectable {
 
     private String name;
     private List<Card> cards;
@@ -19,6 +19,13 @@ public class Deck {
 
     // EFFECTS: returns name
     public String getName() {
+        return name;
+    }
+
+    @Override
+    @JSONPropertyIgnore
+    // EFFECTS: returns name as description
+    public String getDescription() {
         return name;
     }
 

@@ -26,6 +26,11 @@ public class CardTest {
     }
 
     @Test
+    void testGetDescription() {
+        assertEquals(DEFAULT_QUESTION, card.getDescription());
+    }
+
+    @Test
     void testGetAnswer() {
         assertEquals(DEFAULT_ANSWER, card.getAnswer());
     }
