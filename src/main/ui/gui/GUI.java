@@ -2,13 +2,14 @@ package ui.gui;
 
 import exceptions.DeckHasNoCardsException;
 import exceptions.NoDecksException;
+import model.Card;
 import model.Deck;
 import ui.App;
 import ui.gui.enums.DialogMessage;
 import ui.gui.enums.PhotoPath;
-import ui.gui.views.selectors.DeckSelector;
-import ui.gui.views.selectors.EditDeckSelector;
-import ui.gui.views.selectors.StudyDeckSelector;
+import ui.gui.views.selectors.*;
+import ui.gui.views.windows.card.CreateCardWindow;
+import ui.gui.views.windows.card.EditCardWindow;
 import ui.gui.views.windows.deck.CreateDeckWindow;
 import ui.gui.views.windows.deck.EditDeckWindow;
 import ui.gui.views.windows.main.MainWindow;
@@ -27,12 +28,17 @@ public class GUI extends App {
 
     private static MainWindow mainWindow;
     private static CreateDeckWindow createDeckWindow;
-    private static DeckSelector studyDeckSelector;
-    private static DeckSelector editDeckSelector;
+    private static Selector studyDeckSelector;
+    private static Selector editDeckSelector;
+    private static Selector createCardDeckSelector;
+    private static Selector editCardDeckSelector;
+    private static Selector editCardCardSelector;
+    private static CreateCardWindow createCardWindow;
+    private static EditCardWindow editCardWindow;
     private static StudyDeckWindow studyDeckWindow;
     private static EditDeckWindow editDeckWindow;
 
-    // EFFECTS: initializes decks and mainWindow
+    // EFFECTS: initializes decks and instantiates mainWindow
     public GUI() {
         decks = new ArrayList<>();
         mainWindow = new MainWindow();
@@ -57,8 +63,7 @@ public class GUI extends App {
     }
 
     // MODIFIES: this
-    // EFFECTS: if there is a deck shows editDeckSelector. If there is not a deck,
-    //          displays no decks warning.
+    // EFFECTS: if NoDecksException is thrown displays warning, otherwise instantiates and shows editDeckSelector
     public static void showEditDeckSelector() {
         try {
             editDeckSelector = new EditDeckSelector(decks);
@@ -75,10 +80,106 @@ public class GUI extends App {
     }
 
     // MODIFIES: this
-    // EFFECTS: disposes editDeckSelector and shows editDeckWindow
+    // EFFECTS: disposes editDeckSelector and instantiates and shows editDeckWindow
     public static void showEditDeckWindow(Deck deck) {
+        editDeckSelector.dispose();
         editDeckWindow = new EditDeckWindow(deck);
         editDeckWindow.setVisible(true);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: disposes editDeckWindow, updates name of given deck to given name, and shows deck updated message
+    public static void updateDeck(String name, Deck deck) {
+        editDeckWindow.dispose();
+        deck.setName(name);
+        JOptionPane.showMessageDialog(mainWindow,
+                DialogMessage.DECK_UPDATED.getMessage(), "Deck Updated", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: disposes editDeckWindow, removes given deck from decks, and shows deck deleted message
+    public static void deleteDeck(Deck deck) {
+        editDeckWindow.dispose();
+        decks.remove(deck);
+        JOptionPane.showMessageDialog(mainWindow,
+                DialogMessage.DECK_DELETED.getMessage(), "Deck Deleted", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: if NoDecksException is thrown displays warning, else instantiates and shows createCardDeckSelector.
+    public static void showCreateCardDeckSelector() {
+        try {
+            createCardDeckSelector = new CreateCardDeckSelector(decks);
+            createCardDeckSelector.setVisible(true);
+        } catch (NoDecksException ex) {
+            showNoDecksWarning(ex);
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: disposes createCardDeckSelector and instantiates and shows createCardWindow
+    public static void showCreateCardWindow(Deck deck) {
+        createCardDeckSelector.dispose();
+        createCardWindow = new CreateCardWindow(deck);
+        createCardWindow.setVisible(true);
+    }
+
+    // MODIFIES: deck
+    // EFFECTS: disposes createCardWindow, creates card with given question and answer, adds it to the given deck,
+    //          and shows card created message
+    public static void createCard(Deck deck, String question, String answer) {
+        createCardWindow.dispose();
+        Card card = new Card(question, answer);
+        deck.addCard(card);
+        JOptionPane.showMessageDialog(mainWindow,
+                DialogMessage.CARD_CREATED.getMessage(), "Card Created", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: if NoDecksException is thrown displays warning, else instantiates and shows editCardDeckSelector.
+    public static void showEditCardDeckSelector() {
+        try {
+            editCardDeckSelector = new EditCardDeckSelector(decks);
+            editCardDeckSelector.setVisible(true);
+        } catch (NoDecksException ex) {
+            showNoDecksWarning(ex);
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: disposes editCardDeckSelector and instantiates and shows editCardCardSelector
+    public static void showEditCardCardSelector(Deck deck) {
+        editCardDeckSelector.dispose();
+        editCardCardSelector = new EditCardCardSelector(deck);
+        editCardCardSelector.setVisible(true);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: disposes editCardCardSelector and instantiates and shows editCardWindow
+    public static void showEditCardWindow(Deck deck, Card card) {
+        editCardCardSelector.dispose();
+        editCardWindow = new EditCardWindow(deck, card);
+        editCardWindow.setVisible(true);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: disposes editCardWindow, updates question and answer of given card to given question and answer,
+    //          and shows card updated message
+    public static void updateCard(String question, String answer, Card card) {
+        editCardWindow.dispose();
+        card.setQuestion(question);
+        card.setAnswer(answer);
+        JOptionPane.showMessageDialog(mainWindow,
+                DialogMessage.CARD_UPDATED.getMessage(), "Card Updated", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    // MODIFIES: deck
+    // EFFECTS: disposes editCardWindow, deletes given card from given deck, and shows card deleted message
+    public static void deleteCard(Deck deck, Card card) {
+        editCardWindow.dispose();
+        deck.removeCard(card);
+        JOptionPane.showMessageDialog(mainWindow,
+                DialogMessage.CARD_DELETED.getMessage(), "Card Deleted", JOptionPane.INFORMATION_MESSAGE);
     }
 
     // MODIFIES: this
@@ -158,8 +259,8 @@ public class GUI extends App {
     }
 
     // MODIFIES: deck
-    // EFFECTS: disposes studyDeckSelector and instantiates and shows studyDeckWindow.
-    //          Shows deck has no cards error if DeckHasNoCardsException caught.
+    // EFFECTS: disposes studyDeckSelector. If DeckHasNoCardsException is thrown displays warning,
+    //          else instantiates and shows editCardDeckSelector.
     public static void showStudyDeckWindow(Deck deck) {
         studyDeckSelector.dispose();
         try {
@@ -176,7 +277,7 @@ public class GUI extends App {
                 ex.getMessage(), "No Decks with Cards Warning", JOptionPane.ERROR_MESSAGE);
     }
 
-    // EFFECTS: shows study session completed message
+    // EFFECTS: disposes studyDeckWindow and shows study session completed message
     public static void showStudySessionCompleteMessage() {
         studyDeckWindow.dispose();
         JOptionPane.showMessageDialog(mainWindow,
@@ -194,24 +295,6 @@ public class GUI extends App {
     public static void showToby() {
         String path = PhotoPath.TOBY.getPath();
         new PhotoPopupWindow(path);
-    }
-
-    // MODIFIES: this
-    // EFFECTS: updates name of given deck to given name and shows deck updated message
-    public static void updateDeck(String name, Deck deck) {
-        editDeckWindow.dispose();
-        deck.setName(name);
-        JOptionPane.showMessageDialog(mainWindow,
-                DialogMessage.DECK_UPDATED.getMessage(), "Deck Updated", JOptionPane.INFORMATION_MESSAGE);
-    }
-
-    // MODIFIES: this
-    // EFFECTS: removes given deck from decks and shows deck deleted message
-    public static void deleteDeck(Deck deck) {
-        editDeckWindow.dispose();
-        decks.remove(deck);
-        JOptionPane.showMessageDialog(mainWindow,
-                DialogMessage.DECK_DELETED.getMessage(), "Deck Deleted", JOptionPane.INFORMATION_MESSAGE);
     }
 
 }
