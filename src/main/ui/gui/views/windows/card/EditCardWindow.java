@@ -88,8 +88,8 @@ public class EditCardWindow extends JFrame {
         textFieldsPanel = new JPanel(new FlowLayout());
         textFieldsPanel.add(questionLabel);
         textFieldsPanel.add(questionTextField);
-        textFieldsPanel.add(answerTextField);
         textFieldsPanel.add(answerLabel);
+        textFieldsPanel.add(answerTextField);
         textFieldsPanel.add(numberOfResultsLabel);
         textFieldsPanel.add(numberOfResultsTextField);
     }
