@@ -62,7 +62,7 @@ public class GUI extends App {
     }
 
     // MODIFIES: this
-    // EFFECTS: if NoDecksException is thrown displays warning, otherwise instantiates and shows editDeckSelector
+    // EFFECTS: if NoDecksException is thrown displays error, otherwise instantiates and shows editDeckSelector
     public static void showEditDeckSelector() {
         try {
             editDeckSelector = new EditDeckSelector(decks);
@@ -72,10 +72,9 @@ public class GUI extends App {
         }
     }
 
-    // EFFECTS: shows no decks warning
+    // EFFECTS: shows no decks error
     private static void showNoDecksError(NoDecksException ex) {
-        JOptionPane.showMessageDialog(mainWindow,
-                ex.getMessage(), "No Decks Error", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(mainWindow, ex.getMessage(), "No Decks Error", JOptionPane.ERROR_MESSAGE);
     }
 
     // MODIFIES: this
@@ -105,7 +104,7 @@ public class GUI extends App {
     }
 
     // MODIFIES: this
-    // EFFECTS: if NoDecksException is thrown displays warning, else instantiates and shows createCardDeckSelector.
+    // EFFECTS: if NoDecksException is thrown displays error, else instantiates and shows createCardDeckSelector.
     public static void showCreateCardDeckSelector() {
         try {
             createCardDeckSelector = new CreateCardDeckSelector(decks);
@@ -135,13 +134,16 @@ public class GUI extends App {
     }
 
     // MODIFIES: this
-    // EFFECTS: if NoDecksException is thrown displays warning, else instantiates and shows editCardDeckSelector.
+    // EFFECTS: if NoDecksException or NoDecksWithCardsException is thrown displays error,
+    //          else instantiates and shows editCardDeckSelector.
     public static void showEditCardDeckSelector() {
         try {
             editCardDeckSelector = new EditCardDeckSelector(decks);
             editCardDeckSelector.setVisible(true);
         } catch (NoDecksException ex) {
             showNoDecksError(ex);
+        } catch (NoDecksWithCardsException ex) {
+            showNoDecksWithCardsError(ex);
         }
     }
 
@@ -239,8 +241,8 @@ public class GUI extends App {
     }
 
     // MODIFIES: this
-    // EFFECTS: if there is a deck with cards, instantiates and shows studyDeckSelector.
-    //          If there is no such deck, displays no decks with cards warning.
+    // EFFECTS: if NoDecksException or NoDecksWithCardsException is thrown displays error,
+    //          else instantiates and shows studyDeckSelector.
     public static void showStudyDeckSelector() {
         try {
             studyDeckSelector = new StudyDeckSelector(decks);
@@ -252,14 +254,14 @@ public class GUI extends App {
         }
     }
 
-    // EFFECTS: shows no decks with cards warning
+    // EFFECTS: shows no decks with cards error
     private static void showNoDecksWithCardsError(NoDecksWithCardsException ex) {
         JOptionPane.showMessageDialog(mainWindow,
                 ex.getMessage(), "No Decks with Cards Error", JOptionPane.ERROR_MESSAGE);
     }
 
     // MODIFIES: deck
-    // EFFECTS: disposes studyDeckSelector. If DeckHasNoCardsException is thrown displays warning,
+    // EFFECTS: disposes studyDeckSelector. If DeckHasNoCardsException is thrown displays error,
     //          else instantiates and shows editCardDeckSelector.
     public static void showStudyDeckWindow(Deck deck) {
         studyDeckSelector.dispose();
@@ -267,14 +269,14 @@ public class GUI extends App {
             studyDeckWindow = new StudyDeckWindow(deck);
             studyDeckWindow.setVisible(true);
         } catch (DeckHasNoCardsException ex) {
-            showStudyDeckHasNoCardsError(ex);
+            showDeckHasNoCardsError(ex);
         }
     }
 
     // EFFECTS: shows study deck has no cards error
-    private static void showStudyDeckHasNoCardsError(DeckHasNoCardsException ex) {
+    private static void showDeckHasNoCardsError(DeckHasNoCardsException ex) {
         JOptionPane.showMessageDialog(mainWindow,
-                ex.getMessage(), "No Decks with Cards Warning", JOptionPane.ERROR_MESSAGE);
+                ex.getMessage(), "No Decks with Cards Error", JOptionPane.ERROR_MESSAGE);
     }
 
     // EFFECTS: disposes studyDeckWindow and shows study session completed message

@@ -8,7 +8,7 @@ import javax.swing.*;
 import java.util.List;
 
 // represents a deck selector used to select a deck for card creation
-public class CreateCardDeckSelector extends EditDeckSelector {
+public class CreateCardDeckSelector extends DeckSelector {
 
     // EFFECTS: calls superclass constructor
     public CreateCardDeckSelector(List<Deck> decks) throws NoDecksException {
