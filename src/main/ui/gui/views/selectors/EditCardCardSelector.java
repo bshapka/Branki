@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 // represents a card selector used to select a card for editing
 public class EditCardCardSelector extends Selector {
 
-    private Deck deck;
+    private final Deck deck;
 
     // EFFECTS: calls superclass constructor and initializes deck
     public EditCardCardSelector(Deck deck) {

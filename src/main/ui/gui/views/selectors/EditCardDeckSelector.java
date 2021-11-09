@@ -21,7 +21,8 @@ public class EditCardDeckSelector extends NonEmptyDeckSelector {
     //          calls GUI.showEditCardCardSelector
     protected void setupSubmitButton() {
         submitButton = new JButton("Select");
-        submitButton.addActionListener(e -> GUI.showEditCardCardSelector((Deck) selectables.get(list.getSelectedIndex())));
+        submitButton.addActionListener(e ->
+                GUI.showEditCardCardSelector((Deck) selectables.get(list.getSelectedIndex())));
     }
 
 }

@@ -29,7 +29,7 @@ public class StudyDeckWindow extends JFrame {
     private JButton easyButton;
     private JButton hardButton;
     private JButton veryHardButton;
-    private Iterator<Card> cardIterator;
+    private final Iterator<Card> cardIterator;
     private Card currentCard;
 
     private static final int LAYOUT_GAP = 10;

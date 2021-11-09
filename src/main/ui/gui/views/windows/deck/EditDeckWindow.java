@@ -22,7 +22,7 @@ public class EditDeckWindow extends JFrame {
     private JTextField hasDifficultCardsTextField;
     private JButton updateButton;
     private JButton deleteButton;
-    private Deck deck;
+    private final Deck deck;
 
     private static final int LAYOUT_GAP = 10;
 

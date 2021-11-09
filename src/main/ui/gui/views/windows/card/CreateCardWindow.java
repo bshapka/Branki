@@ -18,7 +18,7 @@ public class CreateCardWindow extends JFrame {
     private JTextField questionTextField;
     private JTextField answerTextField;
     private JButton createButton;
-    private Deck deck;
+    private final Deck deck;
 
     private static final int LAYOUT_GAP = 10;
 

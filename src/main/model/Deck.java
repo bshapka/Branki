@@ -9,7 +9,7 @@ import java.util.List;
 public class Deck implements Selectable {
 
     private String name;
-    private List<Card> cards;
+    private final List<Card> cards;
 
     // EFFECTS: constructs a Deck. Sets name to given value, and cards to an empty list.
     public Deck(String name) {

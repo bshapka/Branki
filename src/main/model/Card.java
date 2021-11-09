@@ -10,7 +10,7 @@ public class Card implements Selectable {
 
     private String question;
     private String answer;
-    private List<Result> results;
+    private final List<Result> results;
 
     // EFFECTS: constructs a Card. Sets question and answer to given values, and results to an empty list.
     public Card(String question, String answer) {

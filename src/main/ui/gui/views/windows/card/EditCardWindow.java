@@ -23,8 +23,8 @@ public class EditCardWindow extends JFrame {
     private JTextField numberOfResultsTextField;
     private JButton updateButton;
     private JButton deleteButton;
-    private Deck deck;
-    private Card card;
+    private final Deck deck;
+    private final Card card;
 
     private static final int LAYOUT_GAP = 10;
 

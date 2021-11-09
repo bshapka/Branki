@@ -14,7 +14,6 @@ public class MainWindow extends JFrame {
     // the height of the window
     public static final int HEIGHT = WIDTH;
 
-    private JLabel background;
     private MainMenuBar menuBar;
 
     // MODIFIES: this
@@ -46,7 +45,7 @@ public class MainWindow extends JFrame {
     // MODIFIES: this
     // EFFECTS: adds background image and message to frame
     private void setupBackground() {
-        background = new JLabel();
+        JLabel background = new JLabel();
         String welcomeMessage = MessageFormat.format(
                 "<html>{0}<br><br>{1}</html>",
                 App.getWelcomeMessage(),
