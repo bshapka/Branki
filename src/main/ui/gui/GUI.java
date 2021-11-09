@@ -304,4 +304,20 @@ public class GUI extends App {
         new PhotoPopupWindow("Toby!", path);
     }
 
+    // MODIFIES: this
+    // EFFECTS: shows an option pane. If Save & Quit is selected, the data is saved and the app is quit.
+    //          If Quit Only is selected, the app is quit (without saving data).
+    //          If cancel is selected, nothing is done.
+    public static void quitApp() {
+        String[] options = { "Save & Quit", "Quit Only", "Cancel" };
+        int result = JOptionPane.showOptionDialog(mainWindow, "Select an option", "Quit App",
+                JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE,
+                null, options, options[0]);
+        switch (result) {
+            case 0:
+                saveDecksAndNotify();
+            case 1:
+                System.exit(0);
+        }
+    }
 }

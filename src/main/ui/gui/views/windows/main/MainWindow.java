@@ -4,6 +4,8 @@ import ui.App;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.text.MessageFormat;
 
 // represents a main window of the GUI application
@@ -23,6 +25,7 @@ public class MainWindow extends JFrame {
         setupIcon();
         setupBackground();
         setupMenuBar();
+        setupClosingBehaviour();
         this.setVisible(true);
     }
 
@@ -31,7 +34,7 @@ public class MainWindow extends JFrame {
     private void setupFrame() {
         this.setTitle(App.APP_NAME);
         this.setSize(WIDTH, HEIGHT);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.setResizable(true);
     }
 
@@ -62,6 +65,17 @@ public class MainWindow extends JFrame {
     private void setupMenuBar() {
         menuBar = new MainMenuBar();
         this.setJMenuBar(menuBar);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: adds a WindowListener that calls GUI.quitApp when the window is closed
+    private void setupClosingBehaviour() {
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                ui.gui.GUI.quitApp();
+            }
+        });
     }
 
 }

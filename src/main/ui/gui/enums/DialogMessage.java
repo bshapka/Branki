@@ -20,7 +20,8 @@ public enum DialogMessage {
     DECK_CREATED("The deck has been created."),
     CARD_CREATED("The card has been created."),
     CARD_UPDATED("The card has been updated."),
-    CARD_DELETED("The card has been deleted.");
+    CARD_DELETED("The card has been deleted."),
+    CLOSE_APP("Would you like to quit?");
 
     private final String message;
 
