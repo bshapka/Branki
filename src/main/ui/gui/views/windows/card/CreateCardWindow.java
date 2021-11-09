@@ -22,7 +22,7 @@ public class CreateCardWindow extends JFrame {
 
     private static final int LAYOUT_GAP = 10;
 
-    // EFFECTS:
+    // EFFECTS: initializes deck, sets up frame, adds mainPanel, packs and sets size
     public CreateCardWindow(Deck deck) {
         this.deck = deck;
         setupFrame();
