@@ -21,7 +21,7 @@ public enum DialogMessage {
     CARD_CREATED("The card has been created."),
     CARD_UPDATED("The card has been updated."),
     CARD_DELETED("The card has been deleted."),
-    CLOSE_APP("Would you like to quit?");
+    CLOSE_APP("Select an option.");
 
     private final String message;
 

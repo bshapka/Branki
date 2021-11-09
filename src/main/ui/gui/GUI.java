@@ -310,7 +310,7 @@ public class GUI extends App {
     //          If cancel is selected, nothing is done.
     public static void quitApp() {
         String[] options = { "Save & Quit", "Quit Only", "Cancel" };
-        int result = JOptionPane.showOptionDialog(mainWindow, "Select an option", "Quit App",
+        int result = JOptionPane.showOptionDialog(mainWindow, DialogMessage.CLOSE_APP.getMessage(), "Quit App",
                 JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE,
                 null, options, options[0]);
         switch (result) {
