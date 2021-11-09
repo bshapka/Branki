@@ -1,9 +1,10 @@
-package ui.gui.views.selectors;
+package ui.gui.views.selectors.deck;
 
 import exceptions.NoDecksException;
 import exceptions.NoDecksWithCardsException;
 import model.Deck;
 import ui.gui.GUI;
+import ui.gui.views.selectors.deck.NonEmptyDeckSelector;
 
 import javax.swing.*;
 import java.util.List;

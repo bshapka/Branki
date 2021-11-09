@@ -1,4 +1,4 @@
-package ui.gui.views.selectors;
+package ui.gui.views.selectors.deck;
 
 import exceptions.NoDecksException;
 import model.Deck;

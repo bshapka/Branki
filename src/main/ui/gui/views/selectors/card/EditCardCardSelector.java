@@ -1,9 +1,10 @@
-package ui.gui.views.selectors;
+package ui.gui.views.selectors.card;
 
 import model.Card;
 import model.Deck;
 import model.Selectable;
 import ui.gui.GUI;
+import ui.gui.views.selectors.Selector;
 
 import javax.swing.*;
 import java.util.stream.Collectors;

@@ -1,10 +1,11 @@
-package ui.gui.views.selectors;
+package ui.gui.views.selectors.deck;
 
 import exceptions.NoDecksException;
 import exceptions.NoDecksWithCardsException;
 import model.Deck;
 import model.Selectable;
 import ui.gui.enums.DialogMessage;
+import ui.gui.views.selectors.Selector;
 
 import java.util.List;
 import java.util.stream.Collectors;
