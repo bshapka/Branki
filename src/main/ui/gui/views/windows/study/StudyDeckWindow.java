@@ -17,8 +17,7 @@ import java.util.Iterator;
 public class StudyDeckWindow extends JFrame {
 
     private JPanel mainPanel;
-    private JPanel questionPanel;
-    private JPanel answerPanel;
+    private JPanel textAreasPanel;
     private JPanel buttonsPanel;
     private JLabel questionLabel;
     private JLabel answerLabel;
@@ -55,8 +54,7 @@ public class StudyDeckWindow extends JFrame {
         setupButtons();
         setupLabels();
         setupTextAreas();
-        setupQuestionPanel();
-        setupAnswerPanel();
+        setupTextAreasPanel();
         setupButtonsPanel();
         setupMainPanel();
     }
@@ -93,19 +91,13 @@ public class StudyDeckWindow extends JFrame {
     }
 
     // MODIFIES: this
-    // EFFECTS: instantiates question panel and adds label and text area to panel
-    private void setupQuestionPanel() {
-        questionPanel = new JPanel(new FlowLayout());
-        questionPanel.add(questionLabel);
-        questionPanel.add(questionTextArea);
-    }
-
-    // MODIFIES: this
-    // EFFECTS: instantiates answer panel and adds label and text area to panel
-    private void setupAnswerPanel() {
-        answerPanel = new JPanel(new FlowLayout());
-        answerPanel.add(answerLabel);
-        answerPanel.add(answerTextArea);
+    // EFFECTS: adds all of the labels and text areas to a panel
+    private void setupTextAreasPanel() {
+        textAreasPanel = new JPanel(new GridLayout(2, 2));
+        textAreasPanel.add(questionLabel);
+        textAreasPanel.add(questionTextArea);
+        textAreasPanel.add(answerLabel);
+        textAreasPanel.add(answerTextArea);
     }
 
     // MODIFIES: this
@@ -123,8 +115,7 @@ public class StudyDeckWindow extends JFrame {
     // EFFECTS: instantiates main panel and adds the question, answer, and buttons panels to the main panel
     private void setupMainPanel() {
         mainPanel = new JPanel(new BorderLayout(LAYOUT_GAP, LAYOUT_GAP));
-        mainPanel.add(questionPanel, BorderLayout.NORTH);
-        mainPanel.add(answerPanel, BorderLayout.CENTER);
+        mainPanel.add(textAreasPanel, BorderLayout.CENTER);
         mainPanel.add(buttonsPanel, BorderLayout.SOUTH);
     }
 

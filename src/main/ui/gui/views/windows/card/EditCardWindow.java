@@ -86,7 +86,7 @@ public class EditCardWindow extends JFrame {
     // MODIFIES: this
     // EFFECTS: adds all of the labels and text fields to a panel
     private void setupTextFieldsPanel() {
-        textFieldsPanel = new JPanel(new FlowLayout());
+        textFieldsPanel = new JPanel(new GridLayout(3, 2));
         textFieldsPanel.add(questionLabel);
         textFieldsPanel.add(questionTextField);
         textFieldsPanel.add(answerLabel);
