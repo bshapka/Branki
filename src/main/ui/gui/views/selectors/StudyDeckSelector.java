@@ -1,6 +1,7 @@
 package ui.gui.views.selectors;
 
 import exceptions.NoDecksException;
+import exceptions.NoDecksWithCardsException;
 import model.Deck;
 import model.Selectable;
 import ui.gui.GUI;
@@ -14,11 +15,13 @@ import java.util.stream.Collectors;
 public class StudyDeckSelector extends Selector {
 
     // EFFECTS: calls superclass constructor, and then throws NoDecksException if decks is empty or
-    //          contains a deck with no cards
-    public StudyDeckSelector(List<Deck> decks) throws NoDecksException {
+    //          NoDecksWithCardsException if no decks have cards
+    public StudyDeckSelector(List<Deck> decks) throws NoDecksException, NoDecksWithCardsException {
         super(decks.stream().map(d -> (Selectable) d).collect(Collectors.toList()), "Deck Selection");
-        if (decks.size() == 0 || !decks.stream().allMatch(Deck::hasCards)) {
-            throw new NoDecksException(DialogMessage.NO_DECKS_WITH_CARDS.getMessage());
+        if (decks.isEmpty()) {
+            throw new NoDecksException(DialogMessage.NO_DECKS.getMessage());
+        } else if (decks.stream().noneMatch(Deck::hasCards)) {
+            throw new NoDecksWithCardsException(DialogMessage.NO_DECKS_WITH_CARDS.getMessage());
         }
     }
 
