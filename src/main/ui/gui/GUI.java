@@ -1,12 +1,10 @@
 package ui.gui;
 
 import exceptions.DeckHasNoCardsException;
-import exceptions.InvalidResultDifficultyException;
 import exceptions.NoDecksException;
 import exceptions.NoDecksWithCardsException;
 import model.Card;
 import model.Deck;
-import model.Result;
 import ui.App;
 import ui.gui.enums.DialogMessage;
 import ui.gui.enums.PhotoPath;
@@ -50,6 +48,12 @@ public class GUI extends App {
         decks = new ArrayList<>();
         isUnsaved = false;
         mainWindow = new MainWindow();
+    }
+
+    // MODIFIES: this
+    // EFFECTS: sets isUnsaved to true
+    public static void setUnsaved() {
+        isUnsaved = true;
     }
 
     // MODIFIES: this
@@ -297,20 +301,6 @@ public class GUI extends App {
     private static void showDeckHasNoCardsError(DeckHasNoCardsException ex) {
         JOptionPane.showMessageDialog(mainWindow,
                 ex.getMessage(), "No Decks with Cards Error", JOptionPane.ERROR_MESSAGE);
-    }
-
-    // MODIFIES: this
-    // EFFECTS: if InvalidResultDifficultyException is thrown displays error,
-    //          else adds result with given difficulty to given card and sets isUnsaved to true
-    public static void addResult(int difficulty, Card currentCard) {
-        try {
-            Result result = new Result(difficulty);
-            currentCard.addResult(result);
-            isUnsaved = true;
-        } catch (InvalidResultDifficultyException ex) {
-            JOptionPane.showMessageDialog(mainWindow,
-                    ex.getMessage(), "Invalid Difficulty Error", JOptionPane.ERROR_MESSAGE);
-        }
     }
 
     // EFFECTS: disposes studyDeckWindow and shows study session completed message

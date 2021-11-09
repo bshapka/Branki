@@ -1,8 +1,10 @@
 package ui.gui.views.windows.study;
 
 import exceptions.DeckHasNoCardsException;
+import exceptions.InvalidResultDifficultyException;
 import model.Card;
 import model.Deck;
+import model.Result;
 import ui.gui.GUI;
 import ui.gui.enums.DialogMessage;
 import ui.gui.views.windows.main.MainWindow;
@@ -150,13 +152,21 @@ public class StudyDeckWindow extends JFrame {
     }
 
     // MODIFIES: this
-    // EFFECTS: saves result with given difficulty, then attempts to show the next card. If the next card
-    //          was not shown, then the study session is over and a message stating this is shown.
+    // EFFECTS: if InvalidResultDifficultyException is thrown displays error,
+    //          else adds result with given difficulty to given card and sets isUnsaved to true, then
+    //          shows the next card if there is one to show
     private void logResultAndShowNextCard(int difficulty) {
-        GUI.addResult(difficulty, currentCard);
-        boolean nextCardShown = showNextCard();
-        if (!nextCardShown) {
-            GUI.showStudySessionCompleteMessage();
+        try {
+            Result result = new Result(difficulty);
+            currentCard.addResult(result);
+            GUI.setUnsaved();
+            boolean nextCardShown = showNextCard();
+            if (!nextCardShown) {
+                GUI.showStudySessionCompleteMessage();
+            }
+        } catch (InvalidResultDifficultyException ex) {
+            JOptionPane.showMessageDialog(this,
+                    ex.getMessage(), "Invalid Difficulty Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
