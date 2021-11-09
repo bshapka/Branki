@@ -51,6 +51,7 @@ public class StudyDeckWindow extends JFrame {
     // EFFECTS: sets the closing behaviour, sets up buttons, labels, text areas, and associated panels
     private void setupFrame() {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setTitle("Study Session");
         setupButtons();
         setupLabels();
         setupTextAreas();

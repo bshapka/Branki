@@ -34,6 +34,7 @@ public class CreateCardWindow extends JFrame {
     // EFFECTS: sets the closing behaviour, sets up buttons, labels, text field, and associated panels
     private void setupFrame() {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setTitle("Create Card");
         setupButtons();
         setupLabels();
         setupTextFields();

@@ -19,6 +19,7 @@ public abstract class Selector extends JFrame {
     public Selector(List<Selectable> selectables, String name) {
         this.selectables = selectables;
         setName(name);
+        setTitle(name);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setupList(selectables);
         setupSubmitButton();

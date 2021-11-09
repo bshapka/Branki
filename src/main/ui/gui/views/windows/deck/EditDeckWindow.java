@@ -38,6 +38,7 @@ public class EditDeckWindow extends JFrame {
     // EFFECTS: sets the closing behaviour, sets up buttons, labels, text fields, and associated panels
     private void setupFrame() {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setTitle("Edit Deck");
         setupButtons();
         setupLabels();
         setupTextFields();

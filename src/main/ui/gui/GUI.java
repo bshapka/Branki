@@ -290,13 +290,13 @@ public class GUI extends App {
     // EFFECTS: shows cat loaf photo in popup window
     public static void showCatLoaf() {
         String path = PhotoPath.CAT_LOAF.getPath();
-        new PhotoPopupWindow(path);
+        new PhotoPopupWindow("Cat Loaf!", path);
     }
 
     // EFFECTS: shows Toby photo in popup window
     public static void showToby() {
         String path = PhotoPath.TOBY.getPath();
-        new PhotoPopupWindow(path);
+        new PhotoPopupWindow("Toby!", path);
     }
 
 }
