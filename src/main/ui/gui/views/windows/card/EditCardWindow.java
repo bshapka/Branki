@@ -8,8 +8,8 @@ import ui.gui.views.windows.main.MainWindow;
 import javax.swing.*;
 import java.awt.*;
 
-// represents an edit card window that displays the question, answer, and size of results of a card.
-// Also allows users to update the name or delete the card.
+// represents an edit card window that displays the question, answer, and size of the results of a card.
+// Also allows users to update the question and/or answer of or delete the card.
 public class EditCardWindow extends JFrame {
 
     private JPanel mainPanel;
@@ -28,7 +28,7 @@ public class EditCardWindow extends JFrame {
 
     private static final int LAYOUT_GAP = 10;
 
-    // EFFECTS:
+    // EFFECTS: initializes deck and card, sets up the frame, adds mainPanel to frame, and packs and sizes the frame
     public EditCardWindow(Deck deck, Card card) {
         this.deck = deck;
         this.card = card;

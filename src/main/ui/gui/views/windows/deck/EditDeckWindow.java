@@ -8,7 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 
 // represents an edit deck window that displays the name, size, and difficulty of a deck. Also allows
-// users to update the name or delete the deck.
+// users to update the name of or delete the deck.
 public class EditDeckWindow extends JFrame {
 
     private JPanel mainPanel;
@@ -26,7 +26,7 @@ public class EditDeckWindow extends JFrame {
 
     private static final int LAYOUT_GAP = 10;
 
-    // EFFECTS:
+    // EFFECTS: initializes deck, sets up the frame, adds mainPanel to frame, and packs and sizes the frame
     public EditDeckWindow(Deck deck) {
         this.deck = deck;
         setupFrame();

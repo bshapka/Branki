@@ -6,8 +6,7 @@ import ui.gui.views.windows.main.MainWindow;
 import javax.swing.*;
 import java.awt.*;
 
-// represents an edit deck window that displays the name, size, and difficulty of a deck. Also allows
-// users to update the name or delete the deck.
+// represents a create deck window that allows users to create a deck by giving a name
 public class CreateDeckWindow extends JFrame {
 
     private JPanel mainPanel;
@@ -19,7 +18,7 @@ public class CreateDeckWindow extends JFrame {
 
     private static final int LAYOUT_GAP = 10;
 
-    // EFFECTS:
+    // EFFECTS: sets up the frame, adds mainPanel to frame, and packs and sizes the frame
     public CreateDeckWindow() {
         setupFrame();
         add(mainPanel);
