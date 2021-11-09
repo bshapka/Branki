@@ -17,12 +17,13 @@ import java.util.Iterator;
 public class StudyDeckWindow extends JFrame {
 
     private JPanel mainPanel;
-    private JPanel textAreasPanel;
+    private JPanel textFieldsPanel;
     private JPanel buttonsPanel;
     private JLabel questionLabel;
     private JLabel answerLabel;
-    private JTextArea questionTextArea;
-    private JTextArea answerTextArea;
+    private JTextField questionTextField;
+    private JTextField answerTextField;
+    private JPanel answerContainer;
     private JButton showAnswerButton;
     private JButton veryEasyButton;
     private JButton easyButton;
@@ -53,8 +54,8 @@ public class StudyDeckWindow extends JFrame {
         setTitle("Study Session");
         setupButtons();
         setupLabels();
-        setupTextAreas();
-        setupTextAreasPanel();
+        setupTextFields();
+        setupTextFieldsPanel();
         setupButtonsPanel();
         setupMainPanel();
     }
@@ -83,21 +84,30 @@ public class StudyDeckWindow extends JFrame {
 
     // MODIFIES: this
     // EFFECTS: instantiates all of the text areas and disables them
-    private void setupTextAreas() {
-        questionTextArea = new JTextArea();
-        answerTextArea = new JTextArea();
-        questionTextArea.setEnabled(false);
-        answerTextArea.setEnabled(false);
+    private void setupTextFields() {
+        questionTextField = new JTextField();
+        answerTextField = new JTextField();
+        questionTextField.setEnabled(false);
+        answerTextField.setEnabled(false);
     }
 
     // MODIFIES: this
     // EFFECTS: adds all of the labels and text areas to a panel
-    private void setupTextAreasPanel() {
-        textAreasPanel = new JPanel(new GridLayout(2, 2));
-        textAreasPanel.add(questionLabel);
-        textAreasPanel.add(questionTextArea);
-        textAreasPanel.add(answerLabel);
-        textAreasPanel.add(answerTextArea);
+    private void setupTextFieldsPanel() {
+        GridBagConstraints gbc = new GridBagConstraints();
+        textFieldsPanel = new JPanel(new GridBagLayout());
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        textFieldsPanel.add(questionLabel, gbc);
+        gbc.gridx = 1;
+        textFieldsPanel.add(questionTextField, gbc);
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        textFieldsPanel.add(answerLabel, gbc);
+        gbc.gridx = 1;
+        answerContainer = new JPanel(new GridLayout(1, 1));
+        answerContainer.add(answerTextField);
+        textFieldsPanel.add(answerContainer, gbc);
     }
 
     // MODIFIES: this
@@ -115,7 +125,7 @@ public class StudyDeckWindow extends JFrame {
     // EFFECTS: instantiates main panel and adds the question, answer, and buttons panels to the main panel
     private void setupMainPanel() {
         mainPanel = new JPanel(new BorderLayout(LAYOUT_GAP, LAYOUT_GAP));
-        mainPanel.add(textAreasPanel, BorderLayout.CENTER);
+        mainPanel.add(textFieldsPanel, BorderLayout.CENTER);
         mainPanel.add(buttonsPanel, BorderLayout.SOUTH);
     }
 
@@ -127,7 +137,7 @@ public class StudyDeckWindow extends JFrame {
         easyButton.setEnabled(false);
         hardButton.setEnabled(false);
         veryHardButton.setEnabled(false);
-        answerTextArea.setVisible(false);
+        answerContainer.setVisible(false);
     }
 
     // MODIFIES: this
@@ -138,7 +148,7 @@ public class StudyDeckWindow extends JFrame {
         easyButton.setEnabled(true);
         hardButton.setEnabled(true);
         veryHardButton.setEnabled(true);
-        answerTextArea.setVisible(true);
+        answerContainer.setVisible(true);
     }
 
     // MODIFIES: this
@@ -162,8 +172,8 @@ public class StudyDeckWindow extends JFrame {
     private boolean showNextCard() {
         if (cardIterator.hasNext()) {
             currentCard = cardIterator.next();
-            questionTextArea.setText(currentCard.getQuestion());
-            answerTextArea.setText(currentCard.getAnswer());
+            questionTextField.setText(currentCard.getQuestion());
+            answerTextField.setText(currentCard.getAnswer());
             hideAnswer();
             repaint();
             return true;

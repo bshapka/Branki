@@ -21,6 +21,7 @@ public class CreateCardWindow extends JFrame {
     private final Deck deck;
 
     private static final int LAYOUT_GAP = 10;
+    public static final int FIELD_WIDTH = 30;
 
     // EFFECTS: initializes deck, sets up frame, adds mainPanel, packs and sets size
     public CreateCardWindow(Deck deck) {
@@ -61,8 +62,8 @@ public class CreateCardWindow extends JFrame {
     // MODIFIES: this
     // EFFECTS: instantiates all of the text areas and disables all fields other than name
     private void setupTextFields() {
-        questionTextField = new JTextField("", 10);
-        answerTextField = new JTextField("", 10);
+        questionTextField = new JTextField("", FIELD_WIDTH);
+        answerTextField = new JTextField("", FIELD_WIDTH);
         questionTextField.setEnabled(true);
         answerTextField.setEnabled(true);
     }
@@ -70,11 +71,18 @@ public class CreateCardWindow extends JFrame {
     // MODIFIES: this
     // EFFECTS: adds all of the labels and text fields to a panel
     private void setupTextFieldsPanel() {
-        textFieldsPanel = new JPanel(new GridLayout(2, 2));
-        textFieldsPanel.add(questionLabel);
-        textFieldsPanel.add(questionTextField);
-        textFieldsPanel.add(answerLabel);
-        textFieldsPanel.add(answerTextField);
+        GridBagConstraints gbc = new GridBagConstraints();
+        textFieldsPanel = new JPanel(new GridBagLayout());
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        textFieldsPanel.add(questionLabel, gbc);
+        gbc.gridx = 1;
+        textFieldsPanel.add(questionTextField, gbc);
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        textFieldsPanel.add(answerLabel, gbc);
+        gbc.gridx = 1;
+        textFieldsPanel.add(answerTextField, gbc);
     }
 
     // MODIFIES: this
