@@ -2,6 +2,7 @@ package ui.gui;
 
 import exceptions.DeckHasNoCardsException;
 import exceptions.NoDecksException;
+import exceptions.NoDecksWithCardsException;
 import model.Card;
 import model.Deck;
 import ui.App;
@@ -20,8 +21,6 @@ import javax.swing.*;
 import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 // represents the Branki application GUI UI
 public class GUI extends App {
@@ -69,14 +68,14 @@ public class GUI extends App {
             editDeckSelector = new EditDeckSelector(decks);
             editDeckSelector.setVisible(true);
         } catch (NoDecksException ex) {
-            showNoDecksWarning(ex);
+            showNoDecksError(ex);
         }
     }
 
     // EFFECTS: shows no decks warning
-    private static void showNoDecksWarning(NoDecksException ex) {
+    private static void showNoDecksError(NoDecksException ex) {
         JOptionPane.showMessageDialog(mainWindow,
-                ex.getMessage(), "No Decks Warning", JOptionPane.WARNING_MESSAGE);
+                ex.getMessage(), "No Decks Error", JOptionPane.ERROR_MESSAGE);
     }
 
     // MODIFIES: this
@@ -112,7 +111,7 @@ public class GUI extends App {
             createCardDeckSelector = new CreateCardDeckSelector(decks);
             createCardDeckSelector.setVisible(true);
         } catch (NoDecksException ex) {
-            showNoDecksWarning(ex);
+            showNoDecksError(ex);
         }
     }
 
@@ -142,7 +141,7 @@ public class GUI extends App {
             editCardDeckSelector = new EditCardDeckSelector(decks);
             editCardDeckSelector.setVisible(true);
         } catch (NoDecksException ex) {
-            showNoDecksWarning(ex);
+            showNoDecksError(ex);
         }
     }
 
@@ -244,18 +243,19 @@ public class GUI extends App {
     //          If there is no such deck, displays no decks with cards warning.
     public static void showStudyDeckSelector() {
         try {
-            List<Deck> decksWithCards = decks.stream().filter(Deck::hasCards).collect(Collectors.toList());
-            studyDeckSelector = new StudyDeckSelector(decksWithCards);
+            studyDeckSelector = new StudyDeckSelector(decks);
             studyDeckSelector.setVisible(true);
         } catch (NoDecksException ex) {
-            showNoDecksWithCardsWarning(ex);
+            showNoDecksError(ex);
+        } catch (NoDecksWithCardsException ex) {
+            showNoDecksWithCardsError(ex);
         }
     }
 
     // EFFECTS: shows no decks with cards warning
-    private static void showNoDecksWithCardsWarning(NoDecksException ex) {
+    private static void showNoDecksWithCardsError(NoDecksWithCardsException ex) {
         JOptionPane.showMessageDialog(mainWindow,
-                ex.getMessage(), "No Decks with Cards Warning", JOptionPane.WARNING_MESSAGE);
+                ex.getMessage(), "No Decks with Cards Error", JOptionPane.ERROR_MESSAGE);
     }
 
     // MODIFIES: deck
