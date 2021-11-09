@@ -1,26 +1,26 @@
 package ui.gui.views.selectors;
 
-import model.Deck;
+import model.Selectable;
 import ui.gui.views.windows.main.MainWindow;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 
-// represents a deck selector for selecting a deck from a given lists of decks
-public abstract class DeckSelector extends JFrame {
+// represents a selector for selecting an object from a list
+public abstract class Selector extends JFrame {
 
     private JPanel panel;
     protected JList list;
     protected JButton submitButton;
-    protected final List<Deck> decks;
+    protected final List<Selectable> selectables;
 
     // EFFECTS: configures list, button, panel, and frame
-    public DeckSelector(List<Deck> decks) {
-        this.decks = decks;
-        setName("Deck Selection");
+    public Selector(List<Selectable> selectables, String name) {
+        this.selectables = selectables;
+        setName(name);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setupList(decks);
+        setupList(selectables);
         setupSubmitButton();
         setupPanel();
         add(panel);
@@ -42,9 +42,9 @@ public abstract class DeckSelector extends JFrame {
     protected abstract void setupSubmitButton();
 
     // MODIFIES: this
-    // EFFECTS: instantiates list with deck names in decks and sets configuration options
-    private void setupList(List<Deck> decks) {
-        list = new JList(decks.stream().map(Deck::getName).toArray());
+    // EFFECTS: instantiates list with descriptions in selectables and sets configuration options
+    private void setupList(List<Selectable> selectables) {
+        list = new JList(selectables.stream().map(Selectable::getDescription).toArray());
         list.setVisibleRowCount(5);
         list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         list.setSelectedIndex(0);
