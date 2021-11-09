@@ -18,9 +18,7 @@ public abstract class Selector extends JFrame {
     // EFFECTS: configures list, button, panel, and frame
     public Selector(List<Selectable> selectables, String name) {
         this.selectables = selectables;
-        setName(name);
-        setTitle(name);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setupFrame(name);
         setupList(selectables);
         setupSubmitButton();
         setupPanel();
@@ -30,11 +28,19 @@ public abstract class Selector extends JFrame {
     }
 
     // MODIFIES: this
+    // EFFECTS: sets name, title, and close operation of frame
+    private void setupFrame(String name) {
+        setName(name);
+        setTitle(name);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    }
+
+    // MODIFIES: this
     // EFFECTS: instantiates panel and sets its layout
     private void setupPanel() {
         panel = new JPanel();
         panel.setLayout(new BorderLayout());
-        panel.add(BorderLayout.NORTH, new JScrollPane(list));
+        panel.add(BorderLayout.CENTER, new JScrollPane(list));
         panel.add(BorderLayout.SOUTH, submitButton);
     }
 
@@ -49,7 +55,6 @@ public abstract class Selector extends JFrame {
         list.setVisibleRowCount(5);
         list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         list.setSelectedIndex(0);
-        list.setFont(new Font("Times New Roman", Font.PLAIN, 16));
     }
 
 }
