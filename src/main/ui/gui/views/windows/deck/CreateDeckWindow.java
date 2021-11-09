@@ -61,9 +61,13 @@ public class CreateDeckWindow extends JFrame {
     // MODIFIES: this
     // EFFECTS: adds all of the labels and text fields to a panel
     private void setupTextFieldsPanel() {
-        textFieldsPanel = new JPanel(new FlowLayout());
-        textFieldsPanel.add(nameLabel);
-        textFieldsPanel.add(nameTextField);
+        GridBagConstraints gbc = new GridBagConstraints();
+        textFieldsPanel = new JPanel(new GridBagLayout());
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        textFieldsPanel.add(nameLabel, gbc);
+        gbc.gridx = 1;
+        textFieldsPanel.add(nameTextField, gbc);
     }
 
     // MODIFIES: this
