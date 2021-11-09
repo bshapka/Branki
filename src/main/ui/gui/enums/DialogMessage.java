@@ -17,7 +17,10 @@ public enum DialogMessage {
             "<html>{0}<br>{1}</html>",
             "You don't have any decks.",
             "Please ensure there is a deck and retry.")),
-    DECK_CREATED("A deck has been created.");
+    DECK_CREATED("The deck has been created."),
+    CARD_CREATED("The card has been created."),
+    CARD_UPDATED("The card has been updated."),
+    CARD_DELETED("The card has been deleted.");
 
     private final String message;
 
