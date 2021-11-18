@@ -15,9 +15,9 @@ public abstract class App {
     public static final String APP_NAME = "Branki";
     // the file path for the json file used to save state
     public static final String JSON_FILE_PATH = "./data/decks.json";
-    // the jsonReader used to save application data to a file
-    protected static final JsonReader jsonReader = new JsonReader(JSON_FILE_PATH);
     // the jsonReader used to read saved application data from a file
+    protected static final JsonReader jsonReader = new JsonReader(JSON_FILE_PATH);
+    // the jsonWriter used to save application data to a file
     protected static final JsonWriter jsonWriter = new JsonWriter(JSON_FILE_PATH);
 
     protected static List<Deck> decks;

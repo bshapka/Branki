@@ -25,12 +25,12 @@ public enum DialogMessage {
 
     private final String message;
 
-    // EFFECTS: constructs instance using given fileName by prepending directory path
+    // EFFECTS: constructs instance using given message
     DialogMessage(String message) {
         this.message = message;
     }
 
-    // EFFECTS: returns path
+    // EFFECTS: returns message
     public String getMessage() {
         return message;
     }

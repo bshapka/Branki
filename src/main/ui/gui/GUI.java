@@ -122,7 +122,7 @@ public class GUI extends App {
     }
 
     // MODIFIES: this
-    // EFFECTS: if NoDecksException is thrown displays error, else instantiates and shows createCardDeckSelector.
+    // EFFECTS: if NoDecksException is thrown displays error, else instantiates and shows createCardDeckSelector
     public static void showCreateCardDeckSelector() {
         try {
             createCardDeckSelector = new CreateCardDeckSelector(decks);
@@ -154,7 +154,7 @@ public class GUI extends App {
 
     // MODIFIES: this
     // EFFECTS: if NoDecksException or NoDecksWithCardsException is thrown displays error,
-    //          else instantiates and shows editCardDeckSelector.
+    //          else instantiates and shows editCardDeckSelector
     public static void showEditCardDeckSelector() {
         try {
             editCardDeckSelector = new EditCardDeckSelector(decks);
@@ -324,8 +324,8 @@ public class GUI extends App {
     }
 
     // MODIFIES: this
-    // EFFECTS: if there is unsaved data, shows an option pane with Save & Quit and Quit Only options.
-    //          The former option saves the data before quitting, while the latter just quits.
+    // EFFECTS: if there is unsaved data, shows an option pane with Save & Quit and Quit Only options, otherwise
+    //          just quits
     public static void quitApp() {
         if (isUnsaved) {
             String[] options = { "Save & Quit", "Quit Only"};

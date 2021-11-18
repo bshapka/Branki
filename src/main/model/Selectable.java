@@ -1,6 +1,6 @@
 package model;
 
-// represents classes that have a field that constitutes a description for use in a Swing select box
+// represents required behaviour by classes whose instances will be selectable in the GUI UI
 public interface Selectable {
 
     // EFFECTS: returns description

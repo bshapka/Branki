@@ -2,10 +2,11 @@ package exceptions;
 
 import java.text.MessageFormat;
 
-// represents an Exception that is thrown from the Result constructor if the difficulty arg is invalid
+// represents exception thrown to indicate that the intended difficulty of a result is not within the valid
+// interval defined by minDifficulty and maxDifficulty
 public class InvalidResultDifficultyException extends Exception {
 
-    // EFFECTS: constructs an InvalidResultDifficultyException using the arguments to create an error message
+    // EFFECTS: constructs an InvalidResultDifficultyException using the arguments to get an error message
     public InvalidResultDifficultyException(int difficulty, int minDifficulty, int maxDifficulty) {
         super(getErrorMessage(difficulty, minDifficulty, maxDifficulty));
     }
