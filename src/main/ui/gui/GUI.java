@@ -5,6 +5,7 @@ import exceptions.NoDecksException;
 import exceptions.NoDecksWithCardsException;
 import model.Card;
 import model.Deck;
+import model.EventLog;
 import ui.App;
 import ui.gui.enums.DialogMessage;
 import ui.gui.enums.PhotoPath;
@@ -336,7 +337,13 @@ public class GUI extends App {
                 saveDecksAndNotify();
             }
         }
+        printEventLog();
         System.exit(0);
+    }
+
+    // EFFECTS: prints contents of event log to console
+    public static void printEventLog() {
+        EventLog.getInstance().forEach(System.out::println);
     }
 
 }

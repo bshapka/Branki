@@ -2,6 +2,7 @@ package model;
 
 import org.json.JSONPropertyIgnore;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,19 +69,28 @@ public class Deck implements Selectable {
     // MODIFIES: this
     // EFFECTS: sets name to the given value
     public void setName(String name) {
+        String oldName = this.name;
         this.name = name;
+        String description = MessageFormat.format("Deck name changed from {0} to {1}", oldName, name);
+        EventLog.getInstance().logEvent(new Event(description));
     }
 
     // MODIFIES: this
     // EFFECTS: adds card to cards
     public void addCard(Card card) {
         cards.add(card);
+        String description = MessageFormat.format(
+                "Card with question {0} added to deck with name {1}", card.getQuestion(), name);
+        EventLog.getInstance().logEvent(new Event(description));
     }
 
     // MODIFIES: this
     // EFFECTS: removes card from cards
     public void removeCard(Card card) {
         cards.remove(card);
+        String description = MessageFormat.format(
+                "Card with question {0} removed from deck with name {1}", card.getQuestion(), name);
+        EventLog.getInstance().logEvent(new Event(description));
     }
 
 }

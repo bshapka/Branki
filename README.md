@@ -23,3 +23,32 @@ Here is a list of user stories this project will realize:
 * As a user, I want to be able to save all of my decks to a file
 * As a user, I want to be able to load all of my decks from a file
 * As a user, when I quit I want to be alerted to and be able to save unsaved changes
+
+## Phase 4: Task 2
+
+Mon Nov 22 00:37:23 PST 2021
+Deck name changed from Times Tables to Easy Times Tables
+
+Mon Nov 22 00:37:36 PST 2021
+Card with question What is 0 * 0? added to deck with name Easy Times Tables
+
+Mon Nov 22 00:37:47 PST 2021
+Card with question What is 1 * 1? added to deck with name Easy Times Tables
+
+Mon Nov 22 00:37:57 PST 2021
+Card question changed from What is 1 * 1? to What is 1 * 1?
+
+Mon Nov 22 00:37:57 PST 2021
+Card answer changed from 2 to 1
+
+Mon Nov 22 00:38:10 PST 2021
+Card with question What is 2 * 2? added to deck with name Easy Times Tables
+
+Mon Nov 22 00:38:16 PST 2021
+Card with question What is 2 * 2? removed from deck with name Easy Times Tables
+
+Mon Nov 22 00:38:42 PST 2021
+Result with difficulty 1 added to card with question What is 0 * 0?
+
+Mon Nov 22 00:38:44 PST 2021
+Result with difficulty 1 added to card with question What is 1 * 1?

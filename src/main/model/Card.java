@@ -2,6 +2,7 @@ package model;
 
 import org.json.JSONPropertyIgnore;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,19 +45,30 @@ public class Card implements Selectable {
     // MODIFIES: this
     // EFFECTS: sets question to given value
     public void setQuestion(String question) {
+        String oldQuestion = this.question;
         this.question = question;
+        String description = MessageFormat.format(
+                "Card question changed from {0} to {1}", oldQuestion, question);
+        EventLog.getInstance().logEvent(new Event(description));
     }
 
     // MODIFIES: this
     // EFFECTS: sets answer to given value
     public void setAnswer(String answer) {
+        String oldAnswer = this.answer;
         this.answer = answer;
+        String description = MessageFormat.format(
+                "Card answer changed from {0} to {1}", oldAnswer, answer);
+        EventLog.getInstance().logEvent(new Event(description));
     }
 
     // MODIFIES: this
     // EFFECTS: adds given result to results
     public void addResult(Result result) {
         results.add(result);
+        String description = MessageFormat.format(
+                "Result with difficulty {0} added to card with question {1}", result.getDifficulty(), question);
+        EventLog.getInstance().logEvent(new Event(description));
     }
 
     // EFFECTS: returns true if the majority of results indicate difficulty, else returns false
