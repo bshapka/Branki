@@ -26,6 +26,8 @@ Here is a list of user stories this project will realize:
 
 ## Phase 4: Task 2
 
+Here is a representative sample of events logged by event logging:
+
 Mon Nov 22 00:37:23 PST 2021
 Deck name changed from Times Tables to Easy Times Tables
 
@@ -52,3 +54,17 @@ Result with difficulty 1 added to card with question What is 0 * 0?
 
 Mon Nov 22 00:38:44 PST 2021
 Result with difficulty 1 added to card with question What is 1 * 1?
+
+## Phase 4: Task 3
+
+If I had more time to work on this project, I would consider refactoring it as follows:
+* The model classes seem to be hierarchical. So implementing the composite pattern seems advisable.
+* The EditCardWindow class has an association to the Deck class that could be eliminated if the association between
+Deck and Card was bidirectional. So implementing this bidirectional relationship seems advisable.
+* The way the Selector type hierarchy was implemented requires downcasting of Selectable instances in subtypes of
+Selector. This suggests that a different approach may be advisable.
+* Almost all the differences between non-abstract types in the Selector type hierarchy concern an action listener.
+Passing action listeners as arguments may allow much of this hierarchy to be eliminated. So passing action listeners
+as arguments seems advisable (if it is possible).
+* The classes in the ui.gui.views.windows package appear to share common code. This suggests implementing a
+type hierarchy is advisable.
